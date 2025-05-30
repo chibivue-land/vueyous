@@ -94,14 +94,6 @@ VueUse 函数提供一致且直观的 API。所有函数都以 `use` 开头，�
 所有函数都与 Vue 3 的响应式系统完全集成，值的变化会自动反映在 UI 中。
 
 ```vue
-<template>
-  <div>
-    <p>鼠标位置: {{ x }}, {{ y }}</p>
-    <p>屏幕尺寸: {{ width }} x {{ height }}</p>
-    <p>在线状态: {{ isOnline ? '在线' : '离线' }}</p>
-  </div>
-</template>
-
 <script setup>
 import { useMouse, useWindowSize, useOnline } from '@vueuse/core'
 
@@ -109,6 +101,14 @@ const { x, y } = useMouse()
 const { width, height } = useWindowSize()
 const isOnline = useOnline()
 </script>
+
+<template>
+  <div>
+    <p>鼠标位置: {{ x }}, {{ y }}</p>
+    <p>屏幕尺寸: {{ width }} x {{ height }}</p>
+    <p>在线状态: {{ isOnline ? '在线' : '离线' }}</p>
+  </div>
+</template>
 ```
 
 ### 🛠️ 可定制化

@@ -94,14 +94,6 @@ VueUse functions provide consistent and intuitive APIs. All functions start with
 All functions are fully integrated with Vue 3's reactive system, and value changes are automatically reflected in the UI.
 
 ```vue
-<template>
-  <div>
-    <p>Mouse position: {{ x }}, {{ y }}</p>
-    <p>Screen size: {{ width }} x {{ height }}</p>
-    <p>Online status: {{ isOnline ? 'Online' : 'Offline' }}</p>
-  </div>
-</template>
-
 <script setup>
 import { useMouse, useWindowSize, useOnline } from '@vueuse/core'
 
@@ -109,6 +101,14 @@ const { x, y } = useMouse()
 const { width, height } = useWindowSize()
 const isOnline = useOnline()
 </script>
+
+<template>
+  <div>
+    <p>Mouse position: {{ x }}, {{ y }}</p>
+    <p>Screen size: {{ width }} x {{ height }}</p>
+    <p>Online status: {{ isOnline ? 'Online' : 'Offline' }}</p>
+  </div>
+</template>
 ```
 
 ### 🛠️ Customizable

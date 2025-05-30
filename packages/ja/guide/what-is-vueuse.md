@@ -94,14 +94,6 @@ VueUseの関数は一貫性のある、直感的なAPIを提供します。す�
 すべての関数はVue 3のリアクティブシステムと完全に統合されており、値の変更が自動的にUIに反映されます。
 
 ```vue
-<template>
-  <div>
-    <p>マウス位置: {{ x }}, {{ y }}</p>
-    <p>画面サイズ: {{ width }} x {{ height }}</p>
-    <p>オンライン状態: {{ isOnline ? 'オンライン' : 'オフライン' }}</p>
-  </div>
-</template>
-
 <script setup>
 import { useMouse, useWindowSize, useOnline } from '@vueuse/core'
 
@@ -109,6 +101,14 @@ const { x, y } = useMouse()
 const { width, height } = useWindowSize()
 const isOnline = useOnline()
 </script>
+
+<template>
+  <div>
+    <p>マウス位置: {{ x }}, {{ y }}</p>
+    <p>画面サイズ: {{ width }} x {{ height }}</p>
+    <p>オンライン状態: {{ isOnline ? 'オンライン' : 'オフライン' }}</p>
+  </div>
+</template>
 ```
 
 ### 🛠️ カスタマイズ可能

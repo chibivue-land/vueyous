@@ -1,12 +1,12 @@
 # VueUseとは
 
-VueUseは、Vue.jsの[Composition API](https://vuejs.org/guide/extras/composition-api-faq.html)をベースとしたユーティリティ関数のコレクションです。Vue 3の強力な機能であるComposition APIを活用して、再利用可能で保守性の高いコンポーザブル関数を提供します。
+VueUse は、Vue.js の [Composition API](https://vuejs.org/guide/extras/composition-api-faq.html) をベースとしたユーティリティ関数のコレクションです。Vue 3 の強力な機能である Composition API を活用して、再利用可能で保守性の高いコンポーザブル関数を提供します。
 
 ## VueUseの素晴らしさ
 
 ### 🎯 開発効率の大幅な向上
 
-VueUseを使用することで、よく使われる機能を一から実装する必要がなくなります。マウスの位置追跡、ローカルストレージの管理、ダークモードの検出など、日常的に必要な機能が即座に利用できます。
+VueUse を使用することで、よく使われる機能を一から実装する必要がなくなります。マウスの位置追跡、ローカルストレージの管理、ダークモードの検出など、日常的に必要な機能が即座に利用できます。
 
 ```vue
 <script setup>
@@ -31,40 +31,40 @@ const store = useLocalStorage(
 
 ### 🔧 豊富なカテゴリの関数
 
-VueUseは200以上の関数を提供し、以下のような多様なカテゴリに分類されています：
+VueUse は 200 以上の関数を提供し、以下のような多様なカテゴリに分類されています：
 
 - **State（状態管理）**: リアクティブな状態の管理
-- **Elements（要素）**: DOM要素との相互作用
-- **Browser（ブラウザ）**: ブラウザAPIの活用
+- **Elements（要素）**: DOM 要素との相互作用
+- **Browser（ブラウザ）**: ブラウザ API の活用
 - **Sensors（センサー）**: デバイスのセンサー情報
-- **Network（ネットワーク）**: HTTP通信とネットワーク状態
+- **Network（ネットワーク）**: HTTP 通信とネットワーク状態
 - **Animation（アニメーション）**: スムーズなアニメーション効果
 - **Component（コンポーネント）**: コンポーネント間の通信
 - **Watch（監視）**: リアクティブな値の監視
-- **Reactivity（リアクティビティ）**: Vue3のリアクティブシステムの拡張
+- **Reactivity（リアクティビティ）**: Vue 3 のリアクティブシステムの拡張
 - **Array（配列）**: 配列操作のユーティリティ
 - **Time（時間）**: 日時の操作と管理
 - **Utilities（ユーティリティ）**: その他の便利な関数
 
-### 🚀 TypeScript完全対応
+### 🚀 TypeScript 完全対応
 
-VueUseはTypeScriptで構築されており、優れた型安全性を提供します。IDEでの自動補完やエラー検出により、開発体験が大幅に向上します。
+VueUse は TypeScript で構築されており、優れた型安全性を提供します。IDE での自動補完やエラー検出により、開発体験が大幅に向上します。
 
 ### 📱 幅広いプラットフォーム対応
 
-VueUseは様々な開発環境とツールチェーンで seamlessly に動作するよう設計されています：
+VueUse は様々な開発環境とツールチェーンで seamlessly に動作するよう設計されています：
 
-#### Vue 3プロジェクト
+#### Vue 3 プロジェクト
 ```bash
 npm install @vueuse/core
 ```
-Vue 3の Composition API を最大限活用し、tree-shaking に対応した軽量なバンドルを提供します。
+Vue 3 の Composition API を最大限活用し、tree-shaking に対応した軽量なバンドルを提供します。
 
-#### Nuxt 3での自動インポート
+#### Nuxt 3 での自動インポート
 ```bash
 npx nuxi@latest module add vueuse
 ```
-専用のNuxtモジュールにより、VueUse関数を自動インポートできます。設定不要で即座に利用開始できます。
+専用の Nuxt モジュールにより、VueUse 関数を自動インポートできます。設定不要で即座に利用開始できます。
 
 ```typescript
 // nuxt.config.ts
@@ -73,25 +73,25 @@ export default defineNuxtConfig({
 })
 ```
 
-#### Viteでの最適化
-Viteとの組み合わせで高速な開発体験を実現。Hot Module Replacement（HMR）も完全サポートしています。
+#### Vite での最適化
+Vite との組み合わせで高速な開発体験を実現。Hot Module Replacement（HMR）も完全サポートしています。
 
-#### Webpackプロジェクト
-従来のWebpackベースのプロジェクトでも問題なく動作し、既存プロジェクトへの導入が容易です。
+#### Webpack プロジェクト
+従来の Webpack ベースのプロジェクトでも問題なく動作し、既存プロジェクトへの導入が容易です。
 
-#### CDNでの直接利用
+#### CDN での直接利用
 ```html
 <script src="https://unpkg.com/@vueuse/core"></script>
 ```
-ビルドプロセスなしで、HTMLファイルから直接利用可能。プロトタイピングや学習目的に最適です。
+ビルドプロセスなしで、HTML ファイルから直接利用可能。プロトタイピングや学習目的に最適です。
 
-### 🎨 直感的なAPI設計
+### 🎨 直感的な API 設計
 
-VueUseの関数は一貫性のある、直感的なAPIを提供します。すべての関数は`use`で始まり、Vue 3のComposition APIの慣例に従っています。
+VueUse の関数は一貫性のある、直感的な API を提供します。すべての関数は`use`で始まり、Vue 3 の Composition API の慣例に従っています。
 
 ### 🔄 リアクティブな設計
 
-すべての関数はVue 3のリアクティブシステムと完全に統合されており、値の変更が自動的にUIに反映されます。
+すべての関数は Vue 3 のリアクティブシステムと完全に統合されており、値の変更が自動的に UI に反映されます。
 
 ```vue
 <script setup>

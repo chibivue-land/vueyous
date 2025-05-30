@@ -95,7 +95,7 @@ All functions are fully integrated with Vue 3's reactive system, and value chang
 
 ```vue
 <script setup>
-import { useMouse, useWindowSize, useOnline } from '@vueuse/core'
+import { useMouse, useOnline, useWindowSize } from '@vueuse/core'
 
 const { x, y } = useMouse()
 const { width, height } = useWindowSize()

@@ -95,7 +95,7 @@ VueUseの関数は一貫性のある、直感的なAPIを提供します。す�
 
 ```vue
 <script setup>
-import { useMouse, useWindowSize, useOnline } from '@vueuse/core'
+import { useMouse, useOnline, useWindowSize } from '@vueuse/core'
 
 const { x, y } = useMouse()
 const { width, height } = useWindowSize()

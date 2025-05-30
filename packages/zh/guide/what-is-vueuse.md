@@ -95,7 +95,7 @@ VueUse 函数提供一致且直观的 API。所有函数都以 `use` 开头，�
 
 ```vue
 <script setup>
-import { useMouse, useWindowSize, useOnline } from '@vueuse/core'
+import { useMouse, useOnline, useWindowSize } from '@vueuse/core'
 
 const { x, y } = useMouse()
 const { width, height } = useWindowSize()

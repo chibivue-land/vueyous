@@ -9,6 +9,7 @@ const sidebar: i18nTheme['sidebar'] = [
   { text: 'Getting Started', link: '/guide/' },
   { text: 'What is VueUse?', link: '/guide/what-is-vueuse' },
   { text: 'Setup', link: '/guide/setup' },
+  { text: 'Contributing', link: '/guide/contributing' },
 ]
 
 export const en: i18nTheme = { nav, sidebar }

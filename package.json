@@ -15,7 +15,8 @@
     "lint:text": "textlint .",
     "docs:dev": "vitepress dev packages",
     "docs:build": "vitepress build packages",
-    "docs:preview": "vitepress preview packages"
+    "docs:preview": "vitepress preview packages",
+    "setup:playground": "pnpm i && tsx tools/create-vueyous/main.ts"
   },
   "dependencies": {
     "@vueuse/core": "^10.9.0",
@@ -38,6 +39,7 @@
     "npm-run-all2": "^6.1.2",
     "textlint": "^14.0.4",
     "textlint-rule-ja-space-between-half-and-full-width": "^2.3.1",
+    "tsx": "^4.20.3",
     "typescript": "~5.4.0",
     "vite": "^5.1.6",
     "vitepress": "^1.0.2",

@@ -15,8 +15,7 @@
     "lint:text": "textlint .",
     "docs:dev": "vitepress dev packages",
     "docs:build": "vitepress build packages",
-    "docs:preview": "vitepress preview packages",
-    "setup:playground": "pnpm i && tsx tools/create-vueyous/main.ts"
+    "docs:preview": "vitepress preview packages"
   },
   "dependencies": {
     "@vueuse/core": "^10.9.0",

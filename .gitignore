@@ -29,6 +29,7 @@ coverage
 
 *.tsbuildinfo
 
-
+components.d.ts
+index.json
 packages/.vitepress/cache
 packages/.vitepress/dist

@@ -9,7 +9,9 @@
       "@vueyous/core": ["./packages/core/index.ts"],
       "@vueyous/core/*": ["./packages/core/*"],
       "@vueyous/shared": ["./packages/shared/index.ts"],
-      "@vueyous/shared/*": ["./packages/shared/*"]
+      "@vueyous/shared/*": ["./packages/shared/*"],
+      "@vueyous/metadata": ["./packages/metadata/index.ts"],
+      "@vueyous/metadata/*": ["./packages/metadata/*"]
     }
   },
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "packages/core", "packages/shared"],

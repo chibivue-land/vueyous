@@ -1,3 +1,3 @@
 export const HelloVueYous = () => {
-  return 'Hello VueYous!';
+  console.log('Hello VueYous!')
 }

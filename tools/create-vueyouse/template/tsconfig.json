@@ -1,28 +1,28 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "module": "esnext",
-    "baseUrl": ".",
     "lib": [
       "dom",
       "esnext"
     ],
-    "strict": true,
+    "baseUrl": ".",
+    "module": "esnext",
+    "moduleResolution": "node",
     "paths": {
       "vueyouse": [
         "./packages/"
       ]
     },
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "allowJs": true
+    "allowJs": true,
+    "strict": true,
+    "esModuleInterop": true
   },
   "include": [
     "packages/**/*.ts",
-    "examples/**/*.ts",
+    "examples/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "dist",
+    "dist"
   ]
 }

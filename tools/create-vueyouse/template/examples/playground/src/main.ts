@@ -1,3 +1,3 @@
-import {HelloVueYous} from 'vueyouse'
+import { HelloVueYous } from 'vueyouse'
 
 HelloVueYous()

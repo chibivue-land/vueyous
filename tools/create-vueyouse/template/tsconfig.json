@@ -10,7 +10,7 @@
     "strict": true,
     "paths": {
       "vueyouse": [
-        "./packages"
+        "./packages/"
       ]
     },
     "moduleResolution": "node",

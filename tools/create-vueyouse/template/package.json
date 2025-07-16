@@ -1,0 +1,11 @@
+{
+  "name": "vueyouse",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "cd examples/playground && pnpm run dev"
+  },
+  "dependencies": {
+    "@types/node": "^20.11.28"
+  }
+}

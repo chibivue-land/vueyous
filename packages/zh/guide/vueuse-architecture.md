@@ -81,7 +81,7 @@ vueuse/
 
 ### 标准文件结构
 
-让我们以实际的 `useStorage` 为例：
+让我们以实际的 `useStorage` 为例。
 
 ```sh
 useStorage/
@@ -91,7 +91,7 @@ useStorage/
 └── index.test.ts # 单元测试（质量保证）
 ```
 
-每个文件都有明确的作用：
+每个文件都有明确的作用。
 
 - **index.ts**：Composable 的主要实现（TypeScript 类型安全、错误处理）
 - **index.md**：文档（使用方法、API 参考）
@@ -100,7 +100,7 @@ useStorage/
 
 ## 深入学习
 
-要更深入地了解 VueUse 的设计理念，请参考以下资源：
+要更深入地了解 VueUse 的设计理念，请参考以下资源。
 
 ### 官方文档
 

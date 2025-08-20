@@ -81,7 +81,7 @@ VueUse では、すべての Composable が統一されたファイル構造を�
 
 ### 標準的なファイル構成
 
-実際の `useStorage` を例に見てみましょう：
+実際の `useStorage` を例に見てみましょう。
 
 ```sh
 useStorage/
@@ -91,7 +91,7 @@ useStorage/
 └── index.test.ts # ユニットテスト（品質保証）
 ```
 
-各ファイルには明確な役割があります：
+各ファイルには明確な役割があります。
 
 - **index.ts**：Composable のメイン実装（TypeScript による型安全性、エラーハンドリング）
 - **index.md**：ドキュメント（使用方法、API リファレンス）

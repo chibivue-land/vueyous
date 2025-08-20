@@ -46,7 +46,7 @@ vueuse/
 
 例えば、`useLocalStorage`、`useMouse`、`useEventListener` などの基本的な機能はすべて `core` パッケージに含まれています。
 
-### 2. 環境特化
+### 2. 特定環境向け
 
 特定の実行環境に最適化された機能群です。
 
@@ -91,167 +91,12 @@ useStorage/
 └── index.test.ts # ユニットテスト（品質保証）
 ```
 
-それぞれのファイルには明確な役割があります。
+各ファイルには明確な役割があります：
 
-### index.ts - 実装の中核
-
-これが Composable の心臓部です。ここには以下が含まれます：
-
-```typescript
-// 型定義
-export interface UseStorageOptions {
-  serializer?: Serializer<T>
-  onError?: (error: unknown) => void
-  shallow?: boolean
-}
-
-// メイン関数
-export function useStorage<T>(
-  key: string,
-  defaultValue: T,
-  storage?: Storage,
-  options?: UseStorageOptions<T>
-): RemovableRef<T> {
-  // 実装ロジック
-  const data = ref(defaultValue)
-
-  // ストレージからの読み込み
-  const read = () => {
-    try {
-      const rawValue = storage?.getItem(key)
-      if (rawValue != null) {
-        data.value = options?.serializer?.read(rawValue) ?? rawValue
-      }
-    } catch (e) {
-      options?.onError?.(e)
-    }
-  }
-
-  // ストレージへの書き込み
-  const write = () => {
-    try {
-      storage?.setItem(key, options?.serializer?.write(data.value) ?? data.value)
-    } catch (e) {
-      options?.onError?.(e)
-    }
-  }
-
-  // リアクティブな同期
-  watchEffect(write)
-
-  return data
-}
-```
-
-重要なポイント：
-- **完全な型定義**：TypeScript による厳密な型安全性
-- **エラーハンドリング**：適切なエラー処理
-- **オプションの柔軟性**：カスタマイズ可能な設定
-- **リアクティブ統合**：Vue の Reactivity System との完全な統合
-
-### index.md - ドキュメント
-
-ユーザーが最初に目にする重要な情報源です：
-
-````markdown
-# useStorage
-
-ブラウザのローカルストレージとの連携を簡単にする Reactive な storage
-
-## 使用方法
-
-```js
-import { useStorage } from '@vueuse/core'
-
-// デフォルト値でストレージを初期化
-const state = useStorage('my-store', { hello: 'world' })
-
-// 値の変更は自動的にストレージに保存される
-state.value.hello = 'VueUse'
-```
-
-## パラメータ
-
-| パラメータ | 型 | 説明 |
-|----------|-----|------|
-| key | `string` | ストレージキー |
-| defaultValue | `T` | デフォルト値 |
-| storage | `Storage` | 使用するストレージ（デフォルト: localStorage） |
-| options | `UseStorageOptions` | オプション設定 |
-
-## 返り値
-
-`RemovableRef<T>` - リアクティブなストレージ参照
-````
-
-### demo.vue - 実例デモ
-
-```vue
-<script setup lang="ts">
-import { useStorage } from '@vueuse/core'
-
-// localStorage と自動的に同期される
-const state = useStorage('demo-storage', {
-  name: 'VueUse',
-  count: 0
-})
-</script>
-
-<template>
-  <div>
-    <p>ストレージに保存される値を編集してみてください：</p>
-    <input v-model="state.name" placeholder="名前を入力">
-    <input v-model.number="state.count" type="number" placeholder="数値を入力">
-
-    <div class="mt-4">
-      <p>保存された値:</p>
-      <pre>{{ JSON.stringify(state, null, 2) }}</pre>
-    </div>
-
-    <button @click="state = { name: 'VueUse', count: 0 }">
-      リセット
-    </button>
-  </div>
-</template>
-```
-
-このデモは vueuse.org でそのまま表示され、ユーザーは実際に触って動作を確認できます。ページをリロードしても値が保持されることを体験できます。
-
-### index.test.ts - テスト
-
-品質を保証する自動テスト
-
-```typescript
-import { useStorage } from '.'
-
-describe('useStorage', () => {
-  beforeEach(() => {
-    localStorage.clear()
-  })
-
-  it('should store value in localStorage', () => {
-    const storage = useStorage('test-key', 'default')
-    expect(storage.value).toBe('default')
-
-    storage.value = 'new value'
-    expect(localStorage.getItem('test-key')).toBe('"new value"')
-  })
-
-  it('should read existing value from localStorage', () => {
-    localStorage.setItem('existing-key', '"existing value"')
-    const storage = useStorage('existing-key', 'default')
-    expect(storage.value).toBe('existing value')
-  })
-
-  it('should handle complex objects', () => {
-    const storage = useStorage('object-key', { count: 0 })
-    storage.value.count++
-
-    const stored = JSON.parse(localStorage.getItem('object-key')!)
-    expect(stored.count).toBe(1)
-  })
-})
-```
+- **index.ts**：Composable のメイン実装（TypeScript による型安全性、エラーハンドリング）
+- **index.md**：ドキュメント（使用方法、API リファレンス）
+- **demo.vue**：インタラクティブデモ（実装例）
+- **index.test.ts**：ユニットテスト（品質保証）
 
 ## さらに深く学ぶために
 

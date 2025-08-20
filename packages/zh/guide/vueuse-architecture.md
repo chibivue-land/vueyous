@@ -255,50 +255,7 @@ describe('useStorage', () => {
 })
 ```
 
-## VueUse 设计原则
-
-这些结构基于 VueUse 的明确设计原则：
-
-### 1. 通过 Tree-shaking 优化
-
-通过仅导入必要的功能来最小化打包大小：
-
-```typescript
-// ❌ 不推荐：导入所有内容
-import * as VueUse from '@vueuse/core'
-
-// ✅ 推荐：仅导入所需内容
-import { useStorage, useMouse } from '@vueuse/core'
-```
-
-### 2. SSR 安全实现
-
-设计为可安全地与服务器端渲染一起工作：
-
-```typescript
-// 检查浏览器环境
-if (typeof window !== 'undefined') {
-  // 浏览器特定代码
-}
-```
-
-### 3. TypeScript 优先
-
-为所有函数提供完整的类型定义：
-
-```typescript
-export function useCounter(
-  initialValue: number = 0
-): [Ref<number>, (delta?: number) => void, (delta?: number) => void] {
-  const count = ref(initialValue)
-  const inc = (delta = 1) => count.value += delta
-  const dec = (delta = 1) => count.value -= delta
-
-  return [count, inc, dec]
-}
-```
-
-## 📚 深入学习
+## 深入学习
 
 要更深入地了解 VueUse 的设计理念，请参考以下资源：
 
@@ -315,17 +272,8 @@ export function useCounter(
 - **[Composable Vue - Anthony Fu](https://antfu.me/posts/composable-vue-vueday-2021)**
   VueUse 作者 Anthony Fu 在 VueDay 2021 的演讲。充满了设计决策的背景和编写 Composable 函数的实用技巧。
 
-这些资源详细解释了为什么做出某些设计决策以及如何创建高质量的 Composables。
-
 ## 总结
 
-在本节中，我们详细探讨了 VueUse 的组成部分：
-
-✅ **单体仓库结构**用于高效的包管理
-✅ **统一的文件结构**确保一致性
-✅ 基于**明确设计原则**的实现
-✅ **完整的文档、演示和测试**用于质量保证
-
-VueUse 成功的秘诀在于这种一致的结构和明确的设计原则。每个 Composable 独立运作，同时作为一个有凝聚力的库保持统一。
+在本节中，我们详细探讨了 VueUse 的组成部分。
 
 在下一节中，我们将设置开发环境并实现自己的类似 VueUse 的 Composables。

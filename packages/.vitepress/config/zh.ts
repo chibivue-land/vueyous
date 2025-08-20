@@ -8,6 +8,7 @@ const nav: i18nTheme['nav'] = [
 const sidebar: i18nTheme['sidebar'] = [
   { text: '快速开始', link: '/zh/guide/' },
   { text: 'VueUse 是什么？', link: '/zh/guide/what-is-vueuse' },
+  { text: 'VueUse 架构', link: '/zh/guide/vueuse-architecture' },
   { text: '初始化', link: '/zh/guide/setup' },
   { text: '贡献', link: '/zh/guide/contributing' },
 ]

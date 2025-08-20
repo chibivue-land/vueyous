@@ -1,185 +1,279 @@
-# VueUse Architecture
+# Key Components of VueUse
 
-## Overview
+Now that we understand the overview of VueUse from the previous section, let's dive deeper into its actual components.
 
-VueUse is a collection of essential Vue Composition API utilities that provides over 200+ functions for Vue developers. Understanding its architecture helps us create better composables following similar patterns.
+## Overall Directory Structure
 
-## Core Principles
+Let's look at the actual structure. VueUse packages are organized with the following directory structure:
 
-### 1. Modular Design
-VueUse follows a modular approach where each utility exhibits these characteristics
-- Self-contained, allowing each function to be imported and used independently
-- Tree-shakable, ensuring only the utilities you use are included in your bundle
-- Categorized into logical groups for better organization
+This structure is designed to centrally manage the implementation and documentation of each Composable, making it easily accessible to developers.
 
-### 2. Package Structure
+https://github.com/vueuse/vueuse/tree/main/packages
 
-VueUse is organized into several packages. For example, the following packages are available
-
-- @vueuse/core provides essential utilities for common tasks
-- @vueuse/shared contains utilities used across packages
-- @vueuse/integrations enables integration with third-party libraries
-- @vueuse/router offers router-related utilities
-- @vueuse/rxjs provides RxJS integration
-- @vueuse/firebase enables Firebase integration
-
-## Function Categories
-
-### Core Categories
-
-1. **State Management**
-   - `useLocalStorage`, `useSessionStorage`
-   - `useRefHistory`, `useManualRefHistory`
-   - `useCloned`
-
-2. **Sensors**
-   - `useMouse`, `useMousePressed`
-   - `useDeviceOrientation`, `useDeviceMotion`
-   - `useGeolocation`
-
-3. **Browser APIs**
-   - `useClipboard`, `usePermission`
-   - `useFullscreen`, `useDocumentVisibility`
-   - `useBrowserLocation`
-
-4. **Animation & Timing**
-   - `useInterval`, `useTimeout`
-   - `useRafFn`, `useTimestamp`
-   - `useTransition`
-
-5. **Network & Communication**
-   - `useFetch`, `useWebSocket`
-   - `useEventSource`
-   - `useWebWorker`
-
-6. **Component Utilities**
-   - `useVModel`, `useVModels`
-   - `templateRef`
-   - `unrefElement`
-
-## Design Patterns
-
-### 1. Consistent API Design
-
-VueUse functions follow consistent patterns:
-
-```typescript
-// Most functions return reactive refs
-const { x, y } = useMouse()
-
-// Options are passed as the last parameter
-const { data, error } = useFetch(url, {
-  refetch: true,
-  timeout: 5000
-})
-
-// Cleanup is handled automatically
-const { pause, resume } = useInterval(1000, {
-  immediate: true
-})
+```sh
+vueuse/
+├── packages/              # Root directory for all packages
+│   ├── .test/            # Test utilities and test configuration
+│   ├── .vitepress/       # Documentation site (vueuse.org) configuration
+│   ├── components/       # Vue component-style utilities
+│   ├── core/             # Core features and base Composables
+│   ├── electron/         # Electron environment-specific Composables
+│   ├── firebase/         # Firebase integration features
+│   ├── guide/            # English documentation and guides
+│   ├── integrations/     # Third-party library integrations
+│   ├── math/             # Math-related utility functions
+│   ├── metadata/         # Metadata processing utilities
+│   ├── nuxt/             # Nuxt.js-specific plugins and modules
+│   ├── public/           # Public resources (logos, assets, etc.)
+│   ├── router/           # Vue Router-related Composables
+│   ├── rxjs/             # RxJS integration utilities
+│   └── shared/           # Common utilities shared across packages
+├── scripts/              # Build and release scripts
+├── playgrounds/          # Development playground environment
+└── ...                   # Other configuration files
 ```
 
-### 2. Reactive by Default
+## Understanding Package Categories
 
-All VueUse functions work with Vue's reactivity system:
+These packages can be divided into four main categories. Each has a clear role and is designed to be independently importable as needed.
 
-```typescript
-const storage = useLocalStorage('key', 'default')
-// storage is a ref that syncs with localStorage
+### 1. Core Features
 
-storage.value = 'new value' // Updates localStorage automatically
+The most basic and frequently used features.
+
+- **`core/`**: DOM manipulation, state management, event handling, and other most fundamental Composables
+- **`shared/`**: Foundation features and utilities shared across all packages
+
+For example, basic features like `useLocalStorage`, `useMouse`, and `useEventListener` are all included in the `core` package.
+
+### 2. Environment-Specific
+
+Features optimized for specific runtime environments.
+
+- **`electron/`**: Features for desktop applications (file system access, etc.)
+- **`nuxt/`**: Integration features specific to the Nuxt.js framework
+
+These are managed as independent packages since they're only needed in specific environments.
+
+### 3. External Integrations
+
+Features for integration with popular libraries and services.
+
+- **`firebase/`**: Integration with Firebase services (authentication, database, storage)
+- **`rxjs/`**: Integration with the RxJS reactive programming library
+- **`router/`**: Navigation-related features integrated with Vue Router
+- **`integrations/`**: Integration with other third-party libraries
+
+These packages make it easy to integrate with external libraries.
+
+### 4. UI/UX Extensions
+
+Extension features related to user interfaces.
+
+- **`components/`**: Reusable Vue component-style utilities
+- **`math/`**: Mathematical functions used for animations and physics calculations
+
+## Internal Structure of Individual Composables
+
+"How is each Composable structured?"
+
+In VueUse, all Composables have a unified file structure. This allows developers to have a consistent experience when adding new features or understanding existing ones.
+
+### Standard File Structure
+
+Let's look at the actual `useStorage` as an example:
+
+```sh
+useStorage/
+├── index.ts      # Main implementation (TypeScript)
+├── index.md      # Documentation (API reference)
+├── demo.vue      # Interactive demo (implementation example)
+└── index.test.ts # Unit tests (quality assurance)
 ```
 
-### 3. SSR Compatibility
+Each file has a clear role.
 
-Functions are designed to work in both client and server environments. Specifically, they include
-- Server-side checks for browser APIs
-- Graceful fallbacks when APIs are unavailable (such as returning default values)
-- Hydration-safe implementations
+### index.ts - Core Implementation
 
-### 4. TypeScript First
-
-Every function is written with TypeScript, which provides several benefits
-- Full type inference
-- Detailed type definitions
-- Comprehensive IDE support
-
-## Implementation Patterns
-
-### 1. Pausable Controls
-
-Many functions provide control mechanisms:
+This is the heart of the Composable. It includes:
 
 ```typescript
-interface Pausable {
-  isActive: Ref<boolean>
-  pause: () => void
-  resume: () => void
+// Type definitions
+export interface UseStorageOptions {
+  serializer?: Serializer<T>
+  onError?: (error: unknown) => void
+  shallow?: boolean
+}
+
+// Main function
+export function useStorage<T>(
+  key: string,
+  defaultValue: T,
+  storage?: Storage,
+  options?: UseStorageOptions<T>
+): RemovableRef<T> {
+  // Implementation logic
+  const data = ref(defaultValue)
+
+  // Read from storage
+  const read = () => {
+    try {
+      const rawValue = storage?.getItem(key)
+      if (rawValue != null) {
+        data.value = options?.serializer?.read(rawValue) ?? rawValue
+      }
+    } catch (e) {
+      options?.onError?.(e)
+    }
+  }
+
+  // Write to storage
+  const write = () => {
+    try {
+      storage?.setItem(key, options?.serializer?.write(data.value) ?? data.value)
+    } catch (e) {
+      options?.onError?.(e)
+    }
+  }
+
+  // Reactive synchronization
+  watchEffect(write)
+
+  return data
 }
 ```
 
-### 2. Event Cleanup
+Key points:
+- **Complete type definitions**: Strict type safety with TypeScript
+- **Error handling**: Proper error handling
+- **Flexible options**: Customizable configuration
+- **Reactive integration**: Full integration with Vue's Reactivity System
 
-Automatic cleanup of event listeners and subscriptions:
+### index.md - Documentation
+
+The critical information source that users see first:
+
+````markdown
+# useStorage
+
+Reactive storage that simplifies integration with browser's local storage
+
+## Usage
+
+```js
+import { useStorage } from '@vueuse/core'
+
+// Initialize storage with default value
+const state = useStorage('my-store', { hello: 'world' })
+
+// Changes are automatically saved to storage
+state.value.hello = 'VueUse'
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| key | `string` | Storage key |
+| defaultValue | `T` | Default value |
+| storage | `Storage` | Storage to use (default: localStorage) |
+| options | `UseStorageOptions` | Configuration options |
+
+## Return Value
+
+`RemovableRef<T>` - Reactive storage reference
+````
+
+### demo.vue - Live Demo
+
+Interactive demo showing actual behavior:
+
+```vue
+<script setup lang="ts">
+import { useStorage } from '@vueuse/core'
+
+// Automatically synced with localStorage
+const state = useStorage('demo-storage', {
+  name: 'VueUse',
+  count: 0
+})
+</script>
+
+<template>
+  <div>
+    <p>Edit values that will be saved to storage:</p>
+    <input v-model="state.name" placeholder="Enter name">
+    <input v-model.number="state.count" type="number" placeholder="Enter number">
+
+    <div class="mt-4">
+      <p>Saved values:</p>
+      <pre>{{ JSON.stringify(state, null, 2) }}</pre>
+    </div>
+
+    <button @click="state = { name: 'VueUse', count: 0 }">
+      Reset
+    </button>
+  </div>
+</template>
+```
+
+This demo is displayed directly on vueuse.org, allowing users to interact and experience how values persist even after page reload.
+
+### index.test.ts - Tests
+
+Automated tests ensuring quality:
 
 ```typescript
-// Events are automatically removed when component unmounts
-useEventListener(target, 'click', handler)
+import { useStorage } from '.'
+
+describe('useStorage', () => {
+  beforeEach(() => {
+    localStorage.clear()
+  })
+
+  it('should store value in localStorage', () => {
+    const storage = useStorage('test-key', 'default')
+    expect(storage.value).toBe('default')
+
+    storage.value = 'new value'
+    expect(localStorage.getItem('test-key')).toBe('"new value"')
+  })
+
+  it('should read existing value from localStorage', () => {
+    localStorage.setItem('existing-key', '"existing value"')
+    const storage = useStorage('existing-key', 'default')
+    expect(storage.value).toBe('existing value')
+  })
+
+  it('should handle complex objects', () => {
+    const storage = useStorage('object-key', { count: 0 })
+    storage.value.count++
+
+    const stored = JSON.parse(localStorage.getItem('object-key')!)
+    expect(stored.count).toBe(1)
+  })
+})
 ```
 
-### 3. Configurable Options
+## Learn More
 
-Functions accept configuration objects for flexibility:
+For those who want to understand VueUse's design philosophy more deeply, please refer to the following resources.
 
-```typescript
-interface UseMouseOptions {
-  type?: 'page' | 'client'
-  touch?: boolean
-  resetOnTouchEnds?: boolean
-  initialValue?: { x: number; y: number }
-}
-```
+### Official Documentation
 
-## Best Practices from VueUse
+- **[VueUse Guidelines](https://vueuse.org/guidelines.html)**
+  Implementation guidelines for contributors. Contains guidance for creating new Composables.
 
-1. **Single Responsibility**: Each function does one thing well
-2. **Composability**: Functions can be combined to create complex behaviors
-3. **Performance**: Lazy evaluation and efficient updates
-4. **Developer Experience**: Clear naming, good documentation, and examples
-5. **Testing**: Comprehensive test coverage for reliability
+- **[Best Practice Guide](https://vueuse.org/guide/best-practice.html)**
+  How to write effective Composables. Techniques for balancing performance and usability.
 
-## Creating VueUse-like Composables
+### Author's Insights
 
-When creating your own composables following VueUse patterns, consider these guidelines. For more comprehensive guidance, we recommend referring to the official [VueUse Guidelines](https://vueuse.org/guidelines) and [Best Practice Guide](https://vueuse.org/guide/best-practice.html), which contain valuable insights from the actual VueUse development experience.
+- **[Composable Vue - Anthony Fu](https://antfu.me/posts/composable-vue-vueday-2021)**
+  VueDay 2021 talk by VueUse author Anthony Fu. Full of background on design decisions and practical tips for writing Composable functions.
 
-1. **Name with `use` prefix**: `useMyFeature()`
-2. **Return reactive values**: Use `ref()`, `reactive()`, or `computed()`
-3. **Handle cleanup**: Use `onUnmounted()` for cleanup logic
-4. **Provide controls**: Return pause/resume/stop functions when applicable
-5. **Accept options**: Use an options object for configuration
-6. **Support TypeScript**: Add type definitions including generics and overloads where appropriate
-7. **Document well**: Include examples and edge cases in JSDoc comments
+## Summary
 
-## Directory Structure Example
+In this section, we've explored VueUse's components in detail.
 
-```
-packages/
-├── core/                 # Core utilities
-│   ├── useStorage/
-│   │   ├── index.ts     # Main implementation
-│   │   ├── index.md     # Documentation
-│   │   └── demo.vue     # Interactive demo
-│   └── index.ts         # Package exports
-├── shared/              # Shared utilities
-│   └── utils/
-│       ├── is.ts        # Type guards
-│       └── types.ts     # Type definitions
-└── guide/               # Documentation
-    └── *.md             # Guide chapters
-```
-
-This architecture enables VueUse to achieve
-- Maintainability through clear structure and separation of concerns
-- Extensibility with easy addition of new functions
-- Testability through isolated units with clear boundaries
-- Performance optimization via tree-shaking for reduced bundle size
+In the next section, we'll set up a development environment and implement VueUse-like Composables ourselves.

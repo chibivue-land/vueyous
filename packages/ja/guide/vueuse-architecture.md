@@ -114,7 +114,7 @@ export function useStorage<T>(
 ): RemovableRef<T> {
   // 実装ロジック
   const data = ref(defaultValue)
-  
+
   // ストレージからの読み込み
   const read = () => {
     try {
@@ -126,7 +126,7 @@ export function useStorage<T>(
       options?.onError?.(e)
     }
   }
-  
+
   // ストレージへの書き込み
   const write = () => {
     try {
@@ -135,10 +135,10 @@ export function useStorage<T>(
       options?.onError?.(e)
     }
   }
-  
+
   // リアクティブな同期
   watchEffect(write)
-  
+
   return data
 }
 ```
@@ -187,23 +187,6 @@ state.value.hello = 'VueUse'
 ### demo.vue - 実例デモ
 
 ```vue
-<template>
-  <div>
-    <p>ストレージに保存される値を編集してみてください：</p>
-    <input v-model="state.name" placeholder="名前を入力" />
-    <input v-model.number="state.count" type="number" placeholder="数値を入力" />
-    
-    <div class="mt-4">
-      <p>保存された値:</p>
-      <pre>{{ JSON.stringify(state, null, 2) }}</pre>
-    </div>
-    
-    <button @click="state = { name: 'VueUse', count: 0 }">
-      リセット
-    </button>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { useStorage } from '@vueuse/core'
 
@@ -213,6 +196,23 @@ const state = useStorage('demo-storage', {
   count: 0
 })
 </script>
+
+<template>
+  <div>
+    <p>ストレージに保存される値を編集してみてください：</p>
+    <input v-model="state.name" placeholder="名前を入力">
+    <input v-model.number="state.count" type="number" placeholder="数値を入力">
+
+    <div class="mt-4">
+      <p>保存された値:</p>
+      <pre>{{ JSON.stringify(state, null, 2) }}</pre>
+    </div>
+
+    <button @click="state = { name: 'VueUse', count: 0 }">
+      リセット
+    </button>
+  </div>
+</template>
 ```
 
 このデモは vueuse.org でそのまま表示され、ユーザーは実際に触って動作を確認できます。ページをリロードしても値が保持されることを体験できます。
@@ -228,25 +228,25 @@ describe('useStorage', () => {
   beforeEach(() => {
     localStorage.clear()
   })
-  
+
   it('should store value in localStorage', () => {
     const storage = useStorage('test-key', 'default')
     expect(storage.value).toBe('default')
-    
+
     storage.value = 'new value'
     expect(localStorage.getItem('test-key')).toBe('"new value"')
   })
-  
+
   it('should read existing value from localStorage', () => {
     localStorage.setItem('existing-key', '"existing value"')
     const storage = useStorage('existing-key', 'default')
     expect(storage.value).toBe('existing value')
   })
-  
+
   it('should handle complex objects', () => {
     const storage = useStorage('object-key', { count: 0 })
     storage.value.count++
-    
+
     const stored = JSON.parse(localStorage.getItem('object-key')!)
     expect(stored.count).toBe(1)
   })
@@ -259,15 +259,15 @@ VueUse の設計思想をより深く理解したい方は、以下のリソー�
 
 ### 公式ドキュメント
 
-- **[VueUse Guidelines](https://vueuse.org/guidelines.html)**  
+- **[VueUse Guidelines](https://vueuse.org/guidelines.html)**
   コントリビューター向けの実装ガイドライン。新しい Composable を作成する際の指針が記載されています。
 
-- **[Best Practice Guide](https://vueuse.org/guide/best-practice.html)**  
+- **[Best Practice Guide](https://vueuse.org/guide/best-practice.html)**
   効果的な Composables の書き方。パフォーマンスとユーザビリティを両立するテクニック。
 
 ### 作者による解説
 
-- **[Composable Vue - Anthony Fu](https://antfu.me/posts/composable-vue-vueday-2021)**  
+- **[Composable Vue - Anthony Fu](https://antfu.me/posts/composable-vue-vueday-2021)**
   VueUse の作者 Anthony Fu 氏による VueDay 2021 での講演。設計決定の背景や、Composable 関数を書く際の実践的なヒントが満載です。
 
 ## まとめ

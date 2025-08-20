@@ -21,7 +21,7 @@ $ cd vueyous
 2. Install dependencies:
 
 ```bash
-$ pnpm install
+$ ni
 ```
 
 3. Start the development server:
@@ -77,28 +77,28 @@ $ mkdir packages/core/useYourComposable
 
 ```bash
 # Start development server
-$ pnpm docs:dev
+$ nr docs:dev
 
 # Build
-$ pnpm build
+$ nr build
 
 # Type check
-$ pnpm type-check
+$ nr type-check
 
 # Lint
-$ pnpm lint
+$ nr lint
 
 # Lint auto-fix
-$ pnpm lint:fix
+$ nr lint:fix
 
 # Text lint (for Japanese documents)
-$ pnpm lint:text
+$ nr lint:text
 
 # Build documentation
-$ pnpm docs:build
+$ nr docs:build
 
 # Preview documentation
-$ pnpm docs:preview
+$ nr docs:preview
 ```
 
 Thank you for contributing! 🎉

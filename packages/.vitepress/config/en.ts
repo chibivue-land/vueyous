@@ -8,7 +8,7 @@ const nav: i18nTheme['nav'] = [
 const sidebar: i18nTheme['sidebar'] = [
   { text: 'Getting Started', link: '/guide/' },
   { text: 'What is VueUse?', link: '/guide/what-is-vueuse' },
-  { text: 'VueUse Architecture', link: '/guide/vueuse-architecture' },
+  { text: 'Key Components of VueUse', link: '/guide/vueuse-architecture' },
   { text: 'Setup', link: '/guide/setup' },
   { text: 'Contributing', link: '/guide/contributing' },
 ]

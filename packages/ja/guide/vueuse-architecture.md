@@ -260,50 +260,7 @@ describe('useStorage', () => {
 })
 ```
 
-## VueUse の設計原則
-
-これらの構造は、VueUse の明確な設計原則に基づいています：
-
-### 1. Tree-shaking による最適化
-
-必要な機能だけをインポートすることで、バンドルサイズを最小限に抑えます：
-
-```typescript
-// ❌ 非推奨：全体をインポート
-import * as VueUse from '@vueuse/core'
-
-// ✅ 推奨：必要な機能だけをインポート
-import { useStorage, useMouse } from '@vueuse/core'
-```
-
-### 2. SSR セーフな実装
-
-サーバーサイドレンダリングでも安全に動作するよう配慮されています：
-
-```typescript
-// ブラウザ環境のチェック
-if (typeof window !== 'undefined') {
-  // ブラウザ専用のコード
-}
-```
-
-### 3. TypeScript ファースト
-
-すべての関数に完全な型定義が提供されています：
-
-```typescript
-export function useCounter(
-  initialValue: number = 0
-): [Ref<number>, (delta?: number) => void, (delta?: number) => void] {
-  const count = ref(initialValue)
-  const inc = (delta = 1) => count.value += delta
-  const dec = (delta = 1) => count.value -= delta
-  
-  return [count, inc, dec]
-}
-```
-
-## 📚 さらに深く学ぶために
+## さらに深く学ぶために
 
 VueUse の設計思想をより深く理解したい方は、以下のリソースを参考にしてください。
 
@@ -320,17 +277,8 @@ VueUse の設計思想をより深く理解したい方は、以下のリソー�
 - **[Composable Vue - Anthony Fu](https://antfu.me/posts/composable-vue-vueday-2021)**  
   VueUse の作者 Anthony Fu 氏による VueDay 2021 での講演。設計決定の背景や、Composable 関数を書く際の実践的なヒントが満載です。
 
-これらのリソースでは、なぜ特定の設計決定がなされたのか、どのようにして高品質な Composables を作成するのかが詳しく説明されています。
-
 ## まとめ
 
-このセクションでは、VueUse の構成要素について詳しく見てきました：
+このセクションでは、VueUse の構成要素について詳しく見てきました
 
-✅ **モノレポ構造**による効率的なパッケージ管理  
-✅ **統一されたファイル構成**による一貫性の確保  
-✅ **明確な設計原則**に基づいた実装  
-✅ **完全なドキュメント、デモ、テスト**による品質保証  
-
-VueUse の成功の秘訣は、この一貫性のある構造と明確な設計原則にあります。各 Composable が独立して動作しながらも、全体として統一感のあるライブラリとなっているのです。
-
-次のセクションでは、実際に開発環境を構築し、VueUse のような Composables を自分で実装してみましょう。
+次のセクションでは、実際に開発環境を構築し、VueUse のような Composables を実装してみましょう。

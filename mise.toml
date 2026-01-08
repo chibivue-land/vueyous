@@ -1,0 +1,70 @@
+[tools]
+node = "24"
+pnpm = "10"
+
+# =============================================================================
+# Setup
+# =============================================================================
+
+[tasks.setup]
+description = "Install all dependencies"
+run = """
+pnpm install
+echo "✅ Setup complete"
+"""
+
+# =============================================================================
+# Development
+# =============================================================================
+
+[tasks.dev]
+description = "Start development server"
+run = "pnpm dev"
+
+[tasks."docs:dev"]
+description = "Start VitePress documentation server"
+run = "pnpm docs:dev"
+
+# =============================================================================
+# Build
+# =============================================================================
+
+[tasks.build]
+description = "Build the project with type checking"
+run = "pnpm build"
+
+[tasks."docs:build"]
+description = "Build VitePress documentation"
+run = "pnpm docs:build"
+
+# =============================================================================
+# Quality
+# =============================================================================
+
+[tasks.lint]
+description = "Run ESLint"
+run = "pnpm lint"
+
+[tasks."lint:fix"]
+description = "Run ESLint with auto-fix"
+run = "pnpm lint:fix"
+
+[tasks."lint:text"]
+description = "Run textlint for documentation"
+run = "pnpm lint:text"
+
+[tasks."type:check"]
+description = "Run TypeScript type checking"
+run = "pnpm type-check"
+
+# =============================================================================
+# Testing & Preview
+# =============================================================================
+
+[tasks.preview]
+description = "Preview production build"
+run = "pnpm preview"
+
+[tasks."docs:preview"]
+description = "Preview VitePress documentation"
+run = "pnpm docs:preview"

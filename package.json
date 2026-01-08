@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.13.3",
-    "@antfu/ni": "^25.0.0",
     "@tsconfig/node20": "^20.1.2",
     "@types/fs-extra": "^11.0.4",
     "@types/jsdom": "^21.1.6",

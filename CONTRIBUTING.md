@@ -6,28 +6,35 @@ Thank you for your interest in contributing to VueYous! This project is a resour
 
 ### Prerequisites
 
-- Node.js 20 or higher
-- pnpm 8.15.6 or higher
+- [mise](https://mise.jdx.dev/) - Runtime version manager
+  - This will automatically install Node.js 24 and pnpm 10
 
 ### Setup Steps
 
-1. Fork and clone the repository:
+1. Install mise (if not already installed):
+
+```bash
+$ curl https://mise.run | sh
+```
+
+2. Fork and clone the repository:
 
 ```bash
 $ git clone https://github.com/your-username/vueyous.git
 $ cd vueyous
 ```
 
-2. Install dependencies:
+3. Install tools and dependencies:
 
 ```bash
-$ ni
+$ mise install
+$ mise run setup
 ```
 
-3. Start the development server:
+4. Start the development server:
 
 ```bash
-$ pnpm docs:dev
+$ mise run docs:dev
 ```
 
 ## Project Structure
@@ -70,35 +77,35 @@ $ mkdir packages/core/useYourComposable
 ### Coding Standards
 
 - Use TypeScript
-- Follow ESLint rules (check with `pnpm lint`)
+- Follow ESLint rules (check with `mise run lint`)
 - Code formatting is applied automatically
 
 ## Development Commands
 
 ```bash
 # Start development server
-$ nr docs:dev
+$ mise run docs:dev
 
 # Build
-$ nr build
+$ mise run build
 
 # Type check
-$ nr type-check
+$ mise run type-check
 
 # Lint
-$ nr lint
+$ mise run lint
 
 # Lint auto-fix
-$ nr lint:fix
+$ mise run lint:fix
 
 # Text lint (for Japanese documents)
-$ nr lint:text
+$ mise run lint:text
 
 # Build documentation
-$ nr docs:build
+$ mise run docs:build
 
 # Preview documentation
-$ nr docs:preview
+$ mise run docs:preview
 ```
 
 Thank you for contributing! 🎉

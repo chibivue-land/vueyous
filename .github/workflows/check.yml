@@ -23,18 +23,15 @@ jobs:
       - name: Set node
         uses: actions/setup-node@v3
         with:
-          node-version: 20.x
+          node-version: 24.x
           cache: pnpm
 
-      - name: Setup
-        run: npm i -g @antfu/ni
-
       - name: Install
-        run: nci
+        run: pnpm install --frozen-lockfile
 
       - name: lint
-        run: nr lint
+        run: pnpm lint
 
       - name: lint text
-        run: nr lint:text
+        run: pnpm lint:text
 # TODO: configure other jobs

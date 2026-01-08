@@ -53,7 +53,7 @@ run = "pnpm lint:fix"
 description = "Run textlint for documentation"
 run = "pnpm lint:text"
 
-[tasks."type-check"]
+[tasks."type:check"]
 description = "Run TypeScript type checking"
 run = "pnpm type-check"
 

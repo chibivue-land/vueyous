@@ -19,30 +19,31 @@
     "docs:preview": "vitepress preview packages"
   },
   "dependencies": {
-    "@vueuse/core": "^10.9.0",
-    "vue": "^3.4.21"
+    "@vueuse/core": "^14.1.0",
+    "vue": "^3.5.27"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.13.3",
-    "@tsconfig/node20": "^20.1.2",
+    "@antfu/eslint-config": "^7.1.0",
+    "@antfu/ni": "^28.2.0",
+    "@tsconfig/node24": "^24.0.0",
     "@types/fs-extra": "^11.0.4",
-    "@types/jsdom": "^21.1.6",
-    "@types/node": "^20.11.28",
-    "@vitejs/plugin-vue": "^5.0.4",
-    "@vue/test-utils": "^2.4.5",
-    "@vue/tsconfig": "^0.5.1",
+    "@types/jsdom": "^27.0.0",
+    "@types/node": "^24.0.0",
+    "@vitejs/plugin-vue": "^6.0.3",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.8.1",
     "@vueyous/core": "workspace:*",
     "@vueyous/shared": "workspace:*",
-    "eslint": "^8.49.0",
-    "fs-extra": "^11.2.0",
-    "jsdom": "^24.0.0",
-    "npm-run-all2": "^6.1.2",
-    "textlint": "^14.0.4",
-    "textlint-rule-ja-space-between-half-and-full-width": "^2.3.1",
-    "tsx": "^4.20.3",
-    "typescript": "~5.4.0",
-    "vite": "^5.1.6",
-    "vitepress": "^1.0.2",
-    "vue-tsc": "^2.0.6"
+    "eslint": "^9.39.2",
+    "fs-extra": "^11.3.3",
+    "jsdom": "^27.4.0",
+    "npm-run-all2": "^8.0.4",
+    "textlint": "^15.5.1",
+    "textlint-rule-ja-space-between-half-and-full-width": "^2.4.2",
+    "tsx": "^4.21.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1",
+    "vitepress": "^1.6.4",
+    "vue-tsc": "^3.2.2"
   }
 }

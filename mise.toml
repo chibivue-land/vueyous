@@ -68,3 +68,17 @@ run = "pnpm preview"
 [tasks."docs:preview"]
 description = "Preview VitePress documentation"
 run = "pnpm docs:preview"
+
+[tasks.pinact]
+description = "Pin GitHub Actions versions to commit hashes"
+run = """
+mise use -g pinact@latest
+mise exec -- pinact run
+"""
+
+[tasks."pinact:update"]
+description = "Update and pin GitHub Actions to latest versions"
+run = """
+mise use -g pinact@latest
+mise exec -- pinact run -u
+"""

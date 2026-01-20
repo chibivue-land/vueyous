@@ -1,0 +1,47 @@
+name: changelog
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: Release type (leave empty for auto-detect)
+        required: false
+        type: choice
+        options:
+          - ''
+          - major
+          - minor
+          - patch
+      create_release:
+        description: Create release (git commit & tag)
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: jdx/mise-action@6d1e696aa24c1aa1bcc1adea0212707c71ab78a8 # v3.6.1
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Generate changelog (preview)
+        if: ${{ !inputs.create_release }}
+        run: npx changelogen@latest ${{ inputs.release_type && format('--{0}', inputs.release_type) || '' }}
+
+      - name: Generate changelog and create release
+        if: ${{ inputs.create_release }}
+        run: npx changelogen@latest --release ${{ inputs.release_type && format('--{0}', inputs.release_type) || '' }}
+
+      - name: Push changes
+        if: ${{ inputs.create_release }}
+        run: git push --follow-tags

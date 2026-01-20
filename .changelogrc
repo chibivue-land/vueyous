@@ -1,0 +1,43 @@
+{
+  "types": {
+    "feat": {
+      "title": "🚀 Features",
+      "semver": "minor"
+    },
+    "fix": {
+      "title": "🐛 Bug Fixes",
+      "semver": "patch"
+    },
+    "perf": {
+      "title": "⚡ Performance Improvements",
+      "semver": "patch"
+    },
+    "refactor": {
+      "title": "♻️ Refactors",
+      "semver": "patch"
+    },
+    "docs": {
+      "title": "📖 Documentation",
+      "semver": "patch"
+    },
+    "build": {
+      "title": "📦 Build",
+      "semver": "patch"
+    },
+    "test": {
+      "title": "✅ Tests"
+    },
+    "chore": {
+      "title": "🏡 Chore"
+    },
+    "ci": {
+      "title": "🤖 CI"
+    },
+    "style": {
+      "title": "💄 Styles"
+    }
+  },
+  "github": {
+    "repo": "chibivue-land/vueyous"
+  }
+}

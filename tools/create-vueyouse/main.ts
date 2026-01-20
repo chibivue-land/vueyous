@@ -1,5 +1,5 @@
-import process from 'node:process'
 import * as fs from 'node:fs'
+import process from 'node:process'
 import fse from 'fs-extra'
 
 // https://github.com/shiena/ansicolor/blob/master/README.md

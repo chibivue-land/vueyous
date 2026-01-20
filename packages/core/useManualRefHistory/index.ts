@@ -1,7 +1,8 @@
-// NOTE: 実際は 'vue-demi' からimportされてる
-import { type Ref, computed, markRaw, ref } from 'vue'
+import type { Ref } from 'vue'
 
 import { timestamp } from '@vueyous/shared'
+// NOTE: 実際は 'vue-demi' からimportされてる
+import { computed, markRaw, ref } from 'vue'
 
 export interface UseRefHistoryRecord<T> {
   snapshot: T

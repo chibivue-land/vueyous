@@ -34,6 +34,7 @@
     "@vue/tsconfig": "^0.8.1",
     "@vueyous/core": "workspace:*",
     "@vueyous/shared": "workspace:*",
+    "changelogen": "^0.6.2",
     "eslint": "^9.39.2",
     "fs-extra": "^11.3.3",
     "jsdom": "^27.4.0",

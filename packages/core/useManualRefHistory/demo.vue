@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 // TODO: make formatDate
 import { formatDate } from '@vueuse/core'
+import { ref } from 'vue'
 
 import { useManualRefHistory } from '../useManualRefHistory'
 

@@ -1,7 +1,8 @@
 import type { Ref } from 'vue'
-import { watchIgnorable } from '@vueyous/shared'
+import type { UseManualRefHistoryReturn } from '../useManualRefHistory'
 
-import { type UseManualRefHistoryReturn, useManualRefHistory } from '../useManualRefHistory'
+import { watchIgnorable } from '@vueyous/shared'
+import { useManualRefHistory } from '../useManualRefHistory'
 
 export interface UseRefHistoryReturn<Raw> extends UseManualRefHistoryReturn<Raw> {}
 

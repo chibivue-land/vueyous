@@ -1,7 +1,7 @@
 import type { WatchCallback, WatchSource, WatchStopHandle } from 'vue'
-import { ref, watch } from 'vue'
-
 import type { Fn } from '../utils'
+
+import { ref, watch } from 'vue'
 
 export type IgnoredUpdater = (updater: () => void) => void
 

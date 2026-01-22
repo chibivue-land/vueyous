@@ -16,7 +16,10 @@
     "lint:text": "textlint .",
     "docs:dev": "vitepress dev packages",
     "docs:build": "vitepress build packages",
-    "docs:preview": "vitepress preview packages"
+    "docs:preview": "vitepress preview packages",
+    "release:major": "pnpm dlx changelogen@latest --release --major",
+    "release:minor": "pnpm dlx changelogen@latest --release --minor",
+    "release:patch": "pnpm dlx changelogen@latest --release --patch"
   },
   "dependencies": {
     "@vueuse/core": "^14.1.0",

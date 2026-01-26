@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: 'VueYous'
-  text: 'Craft Your Own VueUse Composables From Scratch'
+  name: "VueYous"
+  text: "Craft Your Own VueUse Composables From Scratch"
   tagline: powered by VitePress
   image: /logo.png
   actions:

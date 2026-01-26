@@ -1,8 +1,6 @@
 # Changelog
 
-
 ## v0.0.1
-
 
 ### 🚀 Enhancements
 
@@ -59,7 +57,7 @@
 
 ### 🎨 Styles
 
-- Add temporary  style ([4d36bd2](https://github.com/chibivue-land/vueyous/commit/4d36bd2))
+- Add temporary style ([4d36bd2](https://github.com/chibivue-land/vueyous/commit/4d36bd2))
 
 ### 🤖 CI
 
@@ -71,4 +69,3 @@
 - Naokihaba ([@naokihaba](https://github.com/naokihaba))
 - Ubugeeei ([@ubugeeei](https://github.com/ubugeeei))
 - Pei-pay <gleektennis@icloud.com>
-

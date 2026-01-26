@@ -19,13 +19,10 @@ const { x, y } = useMouse()
 const isDark = usePreferredDark()
 
 // ローカルストレージで状態を永続化
-const store = useLocalStorage(
-  'my-storage',
-  {
-    name: 'Apple',
-    color: 'red',
-  },
-)
+const store = useLocalStorage('my-storage', {
+  name: 'Apple',
+  color: 'red',
+})
 </script>
 ```
 
@@ -55,34 +52,42 @@ VueUse は TypeScript で構築されており、優れた型安全性を提供�
 VueUse は様々な開発環境とツールチェーンで seamlessly に動作するよう設計されています：
 
 #### Vue 3 プロジェクト
+
 ```bash
 npm install @vueuse/core
 ```
+
 Vue 3 の Composition API を最大限活用し、tree-shaking に対応した軽量なバンドルを提供します。
 
 #### Nuxt 3 での自動インポート
+
 ```bash
 npx nuxi@latest module add vueuse
 ```
+
 専用の Nuxt モジュールにより、VueUse 関数を自動インポートできます。設定不要で即座に利用開始できます。
 
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@vueuse/nuxt']
+  modules: ['@vueuse/nuxt'],
 })
 ```
 
 #### Vite での最適化
+
 Vite との組み合わせで高速な開発体験を実現。Hot Module Replacement（HMR）も完全サポートしています。
 
 #### Webpack プロジェクト
+
 従来の Webpack ベースのプロジェクトでも問題なく動作し、既存プロジェクトへの導入が容易です。
 
 #### CDN での直接利用
+
 ```html
 <script src="https://unpkg.com/@vueuse/core"></script>
 ```
+
 ビルドプロセスなしで、HTML ファイルから直接利用可能。プロトタイピングや学習目的に最適です。
 
 ### 🎨 直感的な API 設計
@@ -106,7 +111,7 @@ const isOnline = useOnline()
   <div>
     <p>マウス位置: {{ x }}, {{ y }}</p>
     <p>画面サイズ: {{ width }} x {{ height }}</p>
-    <p>オンライン状態: {{ isOnline ? 'オンライン' : 'オフライン' }}</p>
+    <p>オンライン状態: {{ isOnline ? "オンライン" : "オフライン" }}</p>
   </div>
 </template>
 ```

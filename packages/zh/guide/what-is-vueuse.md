@@ -19,13 +19,10 @@ const { x, y } = useMouse()
 const isDark = usePreferredDark()
 
 // 使用本地存储持久化状态
-const store = useLocalStorage(
-  'my-storage',
-  {
-    name: 'Apple',
-    color: 'red',
-  },
-)
+const store = useLocalStorage('my-storage', {
+  name: 'Apple',
+  color: 'red',
+})
 </script>
 ```
 
@@ -55,34 +52,42 @@ VueUse 使用 TypeScript 构建，提供优秀的类型安全性。IDE 中的自
 VueUse 设计为在各种开发环境和工具链中无缝工作：
 
 #### Vue 3 项目
+
 ```bash
 npm install @vueuse/core
 ```
+
 充分利用 Vue 3 的 Composition API，提供支持 tree-shaking 的轻量级包。
 
 #### Nuxt 3 中的自动导入
+
 ```bash
 npx nuxi@latest module add vueuse
 ```
+
 专用的 Nuxt 模块使您能够自动导入 VueUse 函数。无需配置即可立即开始使用。
 
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@vueuse/nuxt']
+  modules: ['@vueuse/nuxt'],
 })
 ```
 
 #### Vite 优化
+
 与 Vite 结合使用时提供快速的开发体验。完全支持热模块替换 (HMR)。
 
 #### Webpack 项目
+
 在传统的基于 Webpack 的项目中无缝工作，便于集成到现有项目中。
 
 #### 通过 CDN 直接使用
+
 ```html
 <script src="https://unpkg.com/@vueuse/core"></script>
 ```
+
 无需构建过程即可从 HTML 文件直接使用。非常适合原型开发和学习目的。
 
 ### 🎨 直观的 API 设计
@@ -106,7 +111,7 @@ const isOnline = useOnline()
   <div>
     <p>鼠标位置: {{ x }}, {{ y }}</p>
     <p>屏幕尺寸: {{ width }} x {{ height }}</p>
-    <p>在线状态: {{ isOnline ? '在线' : '离线' }}</p>
+    <p>在线状态: {{ isOnline ? "在线" : "离线" }}</p>
   </div>
 </template>
 ```

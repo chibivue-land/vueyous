@@ -5,9 +5,7 @@ import { ja } from './ja'
 import { sharedConfig } from './shared'
 import { zh } from './zh'
 
-export type i18nTheme = Partial<
-  NonNullable<UserConfig<DefaultTheme.Config>['themeConfig']>
->
+export type i18nTheme = Partial<NonNullable<UserConfig<DefaultTheme.Config>['themeConfig']>>
 
 export default defineConfig({
   ...sharedConfig,

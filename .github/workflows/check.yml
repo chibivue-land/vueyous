@@ -25,6 +25,5 @@ jobs:
       - name: lint
         run: pnpm lint
 
-      - name: lint text
-        run: pnpm lint:text
-# TODO: configure other jobs
+      - name: format check
+        run: pnpm fmt:check

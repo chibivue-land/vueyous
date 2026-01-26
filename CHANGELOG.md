@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.0.2
+
+[compare changes](https://github.com/chibivue-land/vueyous/compare/v0.0.1...v0.0.2)
+
+### 🚀 Enhancements
+
+- Update linting and formatting tools ([a0705b0](https://github.com/chibivue-land/vueyous/commit/a0705b0))
+- Update project structure and configurations ([a4f9972](https://github.com/chibivue-land/vueyous/commit/a4f9972))
+
+### 🏡 Chore
+
+- **release:** V0.0.1 ([b40ded5](https://github.com/chibivue-land/vueyous/commit/b40ded5))
+- Add oxlint configuration file for linting and formatting ([523dab4](https://github.com/chibivue-land/vueyous/commit/523dab4))
+- Integrate linting, formatting, and type checking into CI workflow ([e6aa47c](https://github.com/chibivue-land/vueyous/commit/e6aa47c))
+- Remove typecheck step from CI workflow ([5caca23](https://github.com/chibivue-land/vueyous/commit/5caca23))
+
+### ❤️ Contributors
+
+- Naokihaba ([@naokihaba](https://github.com/naokihaba))
+
 ## v0.0.1
 
 ### 🚀 Enhancements

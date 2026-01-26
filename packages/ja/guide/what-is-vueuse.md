@@ -10,19 +10,19 @@ VueUse を使用することで、よく使われる機能を一から実装す�
 
 ```vue
 <script setup>
-import { useLocalStorage, useMouse, usePreferredDark } from '@vueuse/core'
+import { useLocalStorage, useMouse, usePreferredDark } from "@vueuse/core";
 
 // マウス位置を追跡
-const { x, y } = useMouse()
+const { x, y } = useMouse();
 
 // ダークモードの設定を検出
-const isDark = usePreferredDark()
+const isDark = usePreferredDark();
 
 // ローカルストレージで状態を永続化
-const store = useLocalStorage('my-storage', {
-  name: 'Apple',
-  color: 'red',
-})
+const store = useLocalStorage("my-storage", {
+  name: "Apple",
+  color: "red",
+});
 </script>
 ```
 
@@ -70,8 +70,8 @@ npx nuxi@latest module add vueuse
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@vueuse/nuxt'],
-})
+  modules: ["@vueuse/nuxt"],
+});
 ```
 
 #### Vite での最適化
@@ -100,11 +100,11 @@ VueUse の関数は一貫性のある、直感的な API を提供します。�
 
 ```vue
 <script setup>
-import { useMouse, useOnline, useWindowSize } from '@vueuse/core'
+import { useMouse, useOnline, useWindowSize } from "@vueuse/core";
 
-const { x, y } = useMouse()
-const { width, height } = useWindowSize()
-const isOnline = useOnline()
+const { x, y } = useMouse();
+const { width, height } = useWindowSize();
+const isOnline = useOnline();
 </script>
 
 <template>

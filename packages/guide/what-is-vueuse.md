@@ -10,19 +10,19 @@ By using VueUse, you no longer need to implement commonly used features from scr
 
 ```vue
 <script setup>
-import { useLocalStorage, useMouse, usePreferredDark } from '@vueuse/core'
+import { useLocalStorage, useMouse, usePreferredDark } from "@vueuse/core";
 
 // Track mouse position
-const { x, y } = useMouse()
+const { x, y } = useMouse();
 
 // Detect dark mode preference
-const isDark = usePreferredDark()
+const isDark = usePreferredDark();
 
 // Persist state with local storage
-const store = useLocalStorage('my-storage', {
-  name: 'Apple',
-  color: 'red',
-})
+const store = useLocalStorage("my-storage", {
+  name: "Apple",
+  color: "red",
+});
 </script>
 ```
 
@@ -70,8 +70,8 @@ The dedicated Nuxt module enables auto-importing of VueUse functions. You can st
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@vueuse/nuxt'],
-})
+  modules: ["@vueuse/nuxt"],
+});
 ```
 
 #### Optimization with Vite
@@ -100,11 +100,11 @@ All functions are fully integrated with Vue 3's reactive system, and value chang
 
 ```vue
 <script setup>
-import { useMouse, useOnline, useWindowSize } from '@vueuse/core'
+import { useMouse, useOnline, useWindowSize } from "@vueuse/core";
 
-const { x, y } = useMouse()
-const { width, height } = useWindowSize()
-const isOnline = useOnline()
+const { x, y } = useMouse();
+const { width, height } = useWindowSize();
+const isOnline = useOnline();
 </script>
 
 <template>

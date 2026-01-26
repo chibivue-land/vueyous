@@ -1,4 +1,4 @@
 /**
  * Void function
  */
-export type Fn = () => void
+export type Fn = () => void;

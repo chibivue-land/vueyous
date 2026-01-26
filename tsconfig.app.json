@@ -4,7 +4,6 @@
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
 
-    "baseUrl": ".",
     "paths": {
       "@vueyous/core": ["./packages/core/index.ts"],
       "@vueyous/core/*": ["./packages/core/*"],

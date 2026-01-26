@@ -10,19 +10,19 @@ VueUse 是基于 Vue.js [Composition API](https://vuejs.org/guide/extras/composi
 
 ```vue
 <script setup>
-import { useLocalStorage, useMouse, usePreferredDark } from '@vueuse/core'
+import { useLocalStorage, useMouse, usePreferredDark } from "@vueuse/core";
 
 // 跟踪鼠标位置
-const { x, y } = useMouse()
+const { x, y } = useMouse();
 
 // 检测暗色模式偏好
-const isDark = usePreferredDark()
+const isDark = usePreferredDark();
 
 // 使用本地存储持久化状态
-const store = useLocalStorage('my-storage', {
-  name: 'Apple',
-  color: 'red',
-})
+const store = useLocalStorage("my-storage", {
+  name: "Apple",
+  color: "red",
+});
 </script>
 ```
 
@@ -70,8 +70,8 @@ npx nuxi@latest module add vueuse
 ```typescript
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@vueuse/nuxt'],
-})
+  modules: ["@vueuse/nuxt"],
+});
 ```
 
 #### Vite 优化
@@ -100,11 +100,11 @@ VueUse 函数提供一致且直观的 API。所有函数都以 `use` 开头，�
 
 ```vue
 <script setup>
-import { useMouse, useOnline, useWindowSize } from '@vueuse/core'
+import { useMouse, useOnline, useWindowSize } from "@vueuse/core";
 
-const { x, y } = useMouse()
-const { width, height } = useWindowSize()
-const isOnline = useOnline()
+const { x, y } = useMouse();
+const { width, height } = useWindowSize();
+const isOnline = useOnline();
 </script>
 
 <template>

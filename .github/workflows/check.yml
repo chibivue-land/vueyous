@@ -30,7 +30,3 @@ jobs:
 
       - name: typecheck
         run: pnpm typecheck
-
-      - name: lint text
-        run: pnpm lint:text
-# TODO: configure other jobs

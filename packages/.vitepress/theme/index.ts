@@ -1,5 +1,5 @@
-import DefaultTheme from 'vitepress/theme'
+import DefaultTheme from "vitepress/theme";
 
-import './styles/main.css'
+import "./styles/main.css";
 
-export default DefaultTheme
+export default DefaultTheme;

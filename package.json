@@ -1,9 +1,8 @@
 {
   "name": "@vueyous/monorepo",
-  "type": "module",
   "version": "0.0.1",
   "private": true,
-  "packageManager": "pnpm@8.15.6",
+  "type": "module",
   "scripts": {
     "setup": "ni && tsx tools/create-vueyouse/main.ts",
     "dev": "vite",
@@ -11,11 +10,10 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
-    "lint": "oxlint && eslint",
-    "lint:fix": "oxlint --fix && eslint --fix",
-    "lint:text": "textlint .",
+    "lint": "oxlint --type-aware && textlint .",
+    "lint:fix": "oxlint --type-aware --fix && textlint --fix .",
     "fmt": "oxfmt",
-    "fmt:check": "oxfmt --check",
+    "fmt:check": "oxfmt --check .",
     "docs:dev": "vitepress dev packages",
     "docs:build": "vitepress build packages",
     "docs:preview": "vitepress preview packages",
@@ -47,6 +45,7 @@
     "npm-run-all2": "^8.0.4",
     "oxfmt": "^0.27.0",
     "oxlint": "^1.42.0",
+    "oxlint-tsgolint": "^0.11.2",
     "textlint": "^15.5.1",
     "textlint-rule-ja-space-between-half-and-full-width": "^2.4.2",
     "tsx": "^4.21.0",
@@ -54,5 +53,6 @@
     "vite": "^7.3.1",
     "vitepress": "^1.6.4",
     "vue-tsc": "^3.2.2"
-  }
+  },
+  "packageManager": "pnpm@8.15.6"
 }

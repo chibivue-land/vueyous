@@ -11,6 +11,6 @@ export const sharedConfig: UserConfig<DefaultTheme.Config> = {
   themeConfig: {
     search: { provider: "local" },
     logo: "/logo.png",
-    socialLinks: [{ icon: "github", link: "https://github.com/pei-pay/VueYous" }],
+    socialLinks: [{ icon: "github", link: "https://github.com/chibivue-land/vueyous" }],
   },
 } as const;

@@ -22,35 +22,17 @@
 - Streamline documentation structure and enhance English guide ([#53](https://github.com/chibivue-land/vueyous/pull/53))
 - Add "What is VueUse?" guide page ([#57](https://github.com/chibivue-land/vueyous/pull/57))
 
-### 🏡 Chore
-
-- **release:** V0.0.4 ([6eef050](https://github.com/chibivue-land/vueyous/commit/6eef050))
-
 ### ❤️ Contributors
 
-- Naokihaba ([@naokihaba](https://github.com/naokihaba))
 - NaokiHaba ([@naokihaba](https://github.com/naokihaba))
 
-## v0.0.4
+## v0.0.2
 
-[compare changes](https://github.com/chibivue-land/vueyous/compare/v0.0.2...v0.0.4)
+[compare changes](https://github.com/chibivue-land/vueyous/compare/v0.0.1...v0.0.2)
 
-### 🚀 Enhancements
+### 🏡 Chore
 
-- Add GitHub Pages deployment workflow ([#54](https://github.com/chibivue-land/vueyous/pull/54))
-
-### 🩹 Fixes
-
-- Update base path for GitHub Pages deployment ([#55](https://github.com/chibivue-land/vueyous/pull/55))
-
-### 💅 Refactors
-
-- Simplify navigation and improve introduction text ([#56](https://github.com/chibivue-land/vueyous/pull/56))
-
-### 📖 Documentation
-
-- Streamline documentation structure and enhance English guide ([#53](https://github.com/chibivue-land/vueyous/pull/53))
-- Add "What is VueUse?" guide page ([#57](https://github.com/chibivue-land/vueyous/pull/57))
+- Integrate oxlint and oxfmt for faster linting and formatting ([#52](https://github.com/chibivue-land/vueyous/pull/52))
 
 ### ❤️ Contributors
 
@@ -122,6 +104,5 @@
 ### ❤️ Contributors
 
 - Naoki Haba ([@naokihaba](https://github.com/naokihaba))
-- Naokihaba ([@naokihaba](https://github.com/naokihaba))
 - Ubugeeei ([@ubugeeei](https://github.com/ubugeeei))
-- Pei-pay <gleektennis@icloud.com>
+- Pei-pay ([@pei-pay](https://github.com/pei-pay))

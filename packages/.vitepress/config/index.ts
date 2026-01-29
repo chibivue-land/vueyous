@@ -1,9 +1,7 @@
 import type { DefaultTheme, UserConfig } from "vitepress";
 import { defineConfig } from "vitepress";
 import { en } from "./en";
-import { ja } from "./ja";
 import { sharedConfig } from "./shared";
-import { zh } from "./zh";
 
 export type i18nTheme = Partial<NonNullable<UserConfig<DefaultTheme.Config>["themeConfig"]>>;
 

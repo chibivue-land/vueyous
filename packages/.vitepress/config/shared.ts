@@ -4,6 +4,7 @@ import type { DefaultTheme, UserConfig } from "vitepress";
 export const sharedConfig: UserConfig<DefaultTheme.Config> = {
   title: "VueYous",
   description: "Craft Your Own VueUse Composables From Scratch",
+  base: "/vueyous/",
 
   head: [["link", { rel: "icon", href: "/logo.png" }]],
 

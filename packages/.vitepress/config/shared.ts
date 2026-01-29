@@ -6,7 +6,7 @@ export const sharedConfig: UserConfig<DefaultTheme.Config> = {
   description: "Craft Your Own VueUse Composables From Scratch",
   base: "/vueyous/",
 
-  head: [["link", { rel: "icon", href: "/logo.png" }]],
+  head: [["link", { rel: "icon", href: "/vueyous/logo.png" }]],
 
   themeConfig: {
     search: { provider: "local" },

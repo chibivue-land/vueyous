@@ -12,8 +12,9 @@ export default defineConfig({
   themeConfig: sharedConfig.themeConfig,
   locales: {
     root: { label: "English", lang: "en", themeConfig: { ...en } },
-    ja: { label: "日本語", lang: "ja", themeConfig: { ...ja } },
-    zh: { label: "简体中文", lang: " zh", themeConfig: { ...zh } },
+    // 🚧 Under construction - uncomment when ready
+    // ja: { label: "日本語", lang: "ja", themeConfig: { ...ja } },
+    // zh: { label: "简体中文", lang: " zh", themeConfig: { ...zh } },
     // other languages...
   },
 });

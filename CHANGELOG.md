@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.0.4
+
+[compare changes](https://github.com/chibivue-land/vueyous/compare/v0.0.3...v0.0.4)
+
+### 📖 Documentation
+
+- Add multilingual guide content and fix changelog inconsistencies ([#59](https://github.com/chibivue-land/vueyous/pull/59))
+
+### 🏡 Chore
+
+- Remove GitHub Actions workflow for automated releases and implement npm scripts for release management ([87c2a3d](https://github.com/chibivue-land/vueyous/commit/87c2a3d))
+
+### ❤️ Contributors
+
+- NaokiHaba ([@naokihaba](https://github.com/naokihaba))
+- Naokihaba ([@naokihaba](https://github.com/naokihaba))
+
 ## v0.0.3
 
 [compare changes](https://github.com/chibivue-land/vueyous/compare/v0.0.2...v0.0.3)

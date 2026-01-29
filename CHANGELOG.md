@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.0.4
+
+[compare changes](https://github.com/chibivue-land/vueyous/compare/v0.0.2...v0.0.4)
+
+### 🚀 Enhancements
+
+- Add GitHub Pages deployment workflow ([#54](https://github.com/chibivue-land/vueyous/pull/54))
+
+### 🩹 Fixes
+
+- Update base path for GitHub Pages deployment ([#55](https://github.com/chibivue-land/vueyous/pull/55))
+
+### 💅 Refactors
+
+- Simplify navigation and improve introduction text ([#56](https://github.com/chibivue-land/vueyous/pull/56))
+
+### 📖 Documentation
+
+- Streamline documentation structure and enhance English guide ([#53](https://github.com/chibivue-land/vueyous/pull/53))
+- Add "What is VueUse?" guide page ([#57](https://github.com/chibivue-land/vueyous/pull/57))
+
+### ❤️ Contributors
+
+- NaokiHaba ([@naokihaba](https://github.com/naokihaba))
+
 ## v0.0.1
 
 ### 🚀 Enhancements

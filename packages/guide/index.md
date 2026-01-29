@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome! Welcome to VueYous!
+Welcome to VueYous!
 
 In this book, you'll learn how to create composable functions by exploring [VueUse](https://vueuse.org/), a collection of utility functions built on Vue.js's Composition API.
 

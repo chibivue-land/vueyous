@@ -90,9 +90,7 @@ rm -rf src/assets src/components src/style.css public
 `src/App.vue` の内容をシンプルなテンプレートに置き換えます：
 
 ```vue
-<template>
-  Hello VueYous!
-</template>
+<template>Hello VueYous!</template>
 ```
 
 `src/main.ts` の内容を最小限のセットアップに置き換えます：
@@ -155,7 +153,7 @@ export default defineConfig({
     "baseUrl": ".",
     "paths": {
       "vueyouse": ["./packages/index.ts"]
-    },
+    }
     /* ... その他のコンパイラオプション ... */
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "packages/**/*.ts"]
@@ -198,8 +196,12 @@ export function HelloVueYous() {
 }
 
 // 学習を進めるにつれて、ここにコンポーザブルを追加していきます
-export function useCounter() { /* ... */ }
-export function useMouse() { /* ... */ }
+export function useCounter() {
+  /* ... */
+}
+export function useMouse() {
+  /* ... */
+}
 ```
 
 実際のプロジェクト構造はセットアップ方法によって異なる場合がありますが、このコアファイルは変わりません。

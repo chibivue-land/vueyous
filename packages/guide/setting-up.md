@@ -77,8 +77,6 @@ cd my-vueyouse
 pnpm install
 ```
 
-
-
 ### Step 2: Clean Up Unnecessary Files
 
 Remove the files we won't need for learning VueYous:
@@ -92,9 +90,7 @@ rm -rf src/assets src/components src/style.css public
 Replace the contents of `src/App.vue` with a simple template:
 
 ```vue
-<template>
-  Hello VueYous!
-</template>
+<template>Hello VueYous!</template>
 ```
 
 Replace the contents of `src/main.ts` with a minimal setup:
@@ -157,7 +153,7 @@ Update `tsconfig.app.json` to add TypeScript path mapping (add `baseUrl` and `pa
     "baseUrl": ".",
     "paths": {
       "vueyouse": ["./packages/index.ts"]
-    },
+    }
     /* ... other compiler options ... */
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "packages/**/*.ts"]
@@ -200,8 +196,12 @@ export function HelloVueYous() {
 }
 
 // As you learn, you'll add more composables here
-export function useCounter() { /* ... */ }
-export function useMouse() { /* ... */ }
+export function useCounter() {
+  /* ... */
+}
+export function useMouse() {
+  /* ... */
+}
 ```
 
 The actual project structure may vary depending on your setup approach, but this core file remains the same.

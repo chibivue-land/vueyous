@@ -90,9 +90,7 @@ rm -rf src/assets src/components src/style.css public
 将 `src/App.vue` 的内容替换为简单的模板：
 
 ```vue
-<template>
-  Hello VueYous!
-</template>
+<template>Hello VueYous!</template>
 ```
 
 将 `src/main.ts` 的内容替换为最小化设置：
@@ -155,7 +153,7 @@ export default defineConfig({
     "baseUrl": ".",
     "paths": {
       "vueyouse": ["./packages/index.ts"]
-    },
+    }
     /* ... 其他编译器选项 ... */
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "packages/**/*.ts"]
@@ -198,8 +196,12 @@ export function HelloVueYous() {
 }
 
 // 随着学习的深入，您将在这里添加更多组合式函数
-export function useCounter() { /* ... */ }
-export function useMouse() { /* ... */ }
+export function useCounter() {
+  /* ... */
+}
+export function useMouse() {
+  /* ... */
+}
 ```
 
 实际的项目结构可能因您的设置方法而异，但这个核心文件保持不变。

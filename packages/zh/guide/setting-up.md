@@ -16,37 +16,10 @@ node --version
 pnpm --version
 ```
 
-### 安装选项
-
-#### 选项 1：直接安装
+您可以从以下链接安装：
 
 - Node.js: [https://nodejs.org/](https://nodejs.org/)
 - pnpm: [https://pnpm.io/installation](https://pnpm.io/installation)
-
-#### 选项 2：使用 mise（推荐用于版本管理）
-
-如果您想管理多个 Node.js 和 pnpm 版本，或确保团队使用一致的版本，我们推荐使用 [mise](https://mise.jdx.dev/)：
-
-```bash
-# 安装 mise（如果尚未安装）
-curl https://mise.run | sh
-
-# 全局安装 Node.js 和 pnpm
-mise use -g node@24.13.0
-mise use -g pnpm@10.28.2
-
-# 验证安装
-node --version
-pnpm --version
-```
-
-> [!TIP]
-> 使用 `create-vueyouse` 创建的项目包含 `mise.toml` 文件，锁定了这些版本。进入项目后运行：
->
-> ```bash
-> mise trust  # 出于安全考虑必需
-> mise install
-> ```
 
 ## 设置方法
 
@@ -78,9 +51,6 @@ cd my-vueyouse
 
 ### 步骤 3: 安装依赖
 
-> [!IMPORTANT]
-> 如果使用 mise，请在安装依赖前运行 `mise trust` 以启用版本管理。
-
 ```bash
 pnpm install
 ```
@@ -97,124 +67,50 @@ pnpm run dev
 
 如果您希望了解设置的每个部分或想从头开始自定义环境，请按照以下步骤操作：
 
-### 步骤 1: 创建项目目录
+### 步骤 1: 创建 Vite 项目
+
+使用 Vue 和 TypeScript 创建新的 Vite 项目：
 
 ```bash
-mkdir my-vueyouse
+pnpm create vite my-vueyouse --template vue-ts
 cd my-vueyouse
+pnpm install
 ```
 
-### 步骤 2: 初始化包管理器
+### 步骤 2: 清理不必要的文件
+
+删除 VueYous 学习中不需要的文件：
 
 ```bash
-pnpm init
+rm -rf src/assets src/components src/style.css public
 ```
 
-### 步骤 3: 安装核心依赖
+### 步骤 3: 简化 App.vue 和 main.ts
 
-```bash
-pnpm add vue@^3.5.0
-pnpm add -D vite @vitejs/plugin-vue typescript vue-tsc
+将 `src/App.vue` 的内容替换为简单的模板：
+
+```vue
+<template>Hello VueYous!</template>
 ```
 
-### 步骤 4: 安装类型定义
-
-```bash
-pnpm add -D @types/node @tsconfig/node24 @vue/tsconfig
-```
-
-### 步骤 5: 创建配置文件
-
-在项目根目录中创建以下文件：
-
-**`tsconfig.json`**:
-
-```json
-{
-  "files": [],
-  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.app.json" }]
-}
-```
-
-**`tsconfig.app.json`**:
-
-```json
-{
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-  "exclude": ["src/**/__tests__/*"],
-  "compilerOptions": {
-    "composite": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
-}
-```
-
-**`tsconfig.node.json`**:
-
-```json
-{
-  "extends": "@tsconfig/node24/tsconfig.json",
-  "include": [
-    "vite.config.*",
-    "vitest.config.*",
-    "cypress.config.*",
-    "nightwatch.conf.*",
-    "playwright.config.*"
-  ],
-  "compilerOptions": {
-    "composite": true,
-    "noEmit": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "types": ["node"]
-  }
-}
-```
-
-**`vite.config.ts`**:
+将 `src/main.ts` 的内容替换为最小化设置：
 
 ```typescript
-import { fileURLToPath, URL } from "node:url";
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
+import { createApp } from "vue";
+import App from "./App.vue";
 
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
-  },
-});
+createApp(App).mount("#app");
 ```
 
-**`env.d.ts`**:
+### 步骤 4: 创建组合式函数目录
 
-```typescript
-/// <reference types="vite/client" />
+创建用于构建组合式函数的 `packages` 目录：
+
+```bash
+mkdir packages
 ```
 
-### 步骤 6: 创建项目结构
-
-创建以下目录结构：
-
-```
-my-vueyouse/
-├── packages/             # 组合式函数库
-│   └── index.ts
-└── examples/             # 测试 playground（可选）
-    └── playground/
-```
-
-### 步骤 7: 创建第一个组合式函数
-
-创建 `packages/index.ts`：
+创建您的第一个组合式函数 `packages/index.ts`：
 
 ```typescript
 export function HelloVueYous() {
@@ -223,100 +119,92 @@ export function HelloVueYous() {
 }
 ```
 
-这是您的起点。随着学习的深入，您将向此文件添加更多组合式函数并导出它们。
-
 > [!TIP]
 > `packages/` 目录是您构建 VueUse 风格组合式函数的地方。您创建的每个组合式函数都将从 `index.ts` 导出。
 
-### 步骤 8: 向 package.json 添加脚本
+### 步骤 5: 配置 TypeScript 和 Vite 别名
 
-更新您的 `package.json` 以包含这些脚本：
+更新 `vite.config.ts` 添加 `vueyouse` 别名：
+
+```typescript
+import { fileURLToPath, URL } from "node:url";
+import vue from "@vitejs/plugin-vue";
+import { defineConfig } from "vite";
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      vueyouse: fileURLToPath(new URL("./packages", import.meta.url)),
+    },
+  },
+});
+```
+
+更新 `tsconfig.app.json` 添加 TypeScript 路径映射（在 `compilerOptions` 中添加 `baseUrl` 和 `paths`，在 `include` 中添加 `packages/**/*.ts`）：
 
 ```json
 {
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
-  }
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "vueyouse": ["./packages/index.ts"]
+    }
+    /* ... 其他编译器选项 ... */
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "packages/**/*.ts"]
 }
 ```
 
-### 步骤 9: 启动开发服务器
+> [!IMPORTANT]
+> `vueyouse` 别名允许您在整个项目中从 `packages/` 目录导入组合式函数。
+
+### 步骤 6: 导入并调用 HelloVueYous
+
+更新 `src/main.ts` 导入并调用您的第一个组合式函数：
+
+```typescript
+import { createApp } from "vue";
+import { HelloVueYous } from "vueyouse";
+import App from "./App.vue";
+
+HelloVueYous();
+
+createApp(App).mount("#app");
+```
+
+### 步骤 7: 启动开发服务器
+
+启动开发服务器：
 
 ```bash
 pnpm run dev
 ```
 
-## 项目结构概述
+## 核心学习结构
 
-无论您选择哪种方法，您的项目结构应该如下所示：
+VueYous 项目中最重要的是 `packages/index.ts` 文件。在整个指南中，您将在这里构建 VueUse 风格的组合式函数。
 
-```
-my-vueyouse/
-├── src/
-│   ├── composables/      # 受 VueUse 启发的组合式函数
-│   ├── App.vue           # 主应用组件
-│   └── main.ts           # 应用入口点
-├── public/               # 静态资源
-├── node_modules/         # 依赖项
-├── index.html            # HTML 模板
-├── package.json          # 包配置
-├── tsconfig.json         # TypeScript 配置
-├── tsconfig.app.json     # 应用特定的 TS 配置
-├── tsconfig.node.json    # Node 特定的 TS 配置
-├── vite.config.ts        # Vite 配置
-└── env.d.ts              # 类型定义
+```typescript
+// packages/index.ts
+export function HelloVueYous() {
+  console.log("Hello VueYous!");
+}
+
+// 随着学习的深入，您将在这里添加更多组合式函数
+export function useCounter() {
+  /* ... */
+}
+export function useMouse() {
+  /* ... */
+}
 ```
 
-### 可视化概述
-
-以下是文件和目录之间的关系：
-
-```mermaid
-graph TB
-    subgraph Project["📁 my-vueyouse（项目根目录）"]
-        subgraph Source["📁 src（应用源码）"]
-            Composables["📁 composables/<br/>自定义组合式函数"]
-            AppVue["📄 App.vue<br/>根组件"]
-            MainTs["📄 main.ts<br/>入口点"]
-        end
-
-        subgraph Public["📁 public"]
-            StaticFiles["🖼️ 静态资源<br/>（图片、字体等）"]
-        end
-
-        subgraph Config["⚙️ 配置文件"]
-            IndexHTML["📄 index.html"]
-            PackageJSON["📄 package.json"]
-            ViteConfig["📄 vite.config.ts"]
-            TSConfigRoot["📄 tsconfig.json"]
-            TSConfigApp["📄 tsconfig.app.json"]
-            TSConfigNode["📄 tsconfig.node.json"]
-            EnvDTS["📄 env.d.ts"]
-        end
-
-        NodeModules["📦 node_modules"]
-    end
-
-    IndexHTML -.->|加载| MainTs
-    MainTs -->|导入| AppVue
-    AppVue -->|使用| Composables
-    ViteConfig -.->|打包| Source
-    PackageJSON -->|安装| NodeModules
-
-    style Project fill:#f9f9f9
-    style Source fill:#e3f2fd
-    style Public fill:#fff3e0
-    style Config fill:#f3e5f5
-    style Composables fill:#c8e6c9
-```
-
-### 关键目录
-
-- **`src/composables/`**: 在阅读本书时创建自定义组合式函数的位置
-- **`src/App.vue`**: 测试组合式函数的游乐场
-- **`public/`**: 不需要处理的静态文件
+实际的项目结构可能因您的设置方法而异，但这个核心文件保持不变。
 
 ## 验证您的设置
 
@@ -326,7 +214,7 @@ graph TB
 2. 在浏览器中打开 `http://localhost:5173`
 3. 打开浏览器的开发者控制台（F12 或右键 → 检查 → Console 标签）
 4. 您应该在控制台中看到 **"Hello VueYous!"**
-5. 尝试编辑 `src/App.vue` 并保存 - 您应该立即看到更改（热模块替换）
+5. 尝试编辑项目中的任何文件并保存 - 您应该立即看到更改（热模块替换）
 
 > [!TIP]
 > 如果在控制台中看到 "Hello VueYous!"，恭喜！您的环境已正确设置，可以开始学习了。

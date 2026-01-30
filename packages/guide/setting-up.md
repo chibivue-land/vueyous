@@ -16,37 +16,10 @@ node --version
 pnpm --version
 ```
 
-### Installation Options
-
-#### Option 1: Direct Installation
+You can install them from:
 
 - Node.js: [https://nodejs.org/](https://nodejs.org/)
 - pnpm: [https://pnpm.io/installation](https://pnpm.io/installation)
-
-#### Option 2: Using mise (Recommended for Version Management)
-
-If you want to manage multiple Node.js and pnpm versions or ensure consistent versions across your team, we recommend using [mise](https://mise.jdx.dev/):
-
-```bash
-# Install mise (if not already installed)
-curl https://mise.run | sh
-
-# Install Node.js and pnpm globally
-mise use -g node@24.13.0
-mise use -g pnpm@10.28.2
-
-# Verify installations
-node --version
-pnpm --version
-```
-
-> [!TIP]
-> When you create a VueYous project with `create-vueyouse`, it includes a `mise.toml` file that locks these versions. Navigate to your project and run:
->
-> ```bash
-> mise trust  # Required for security
-> mise install
-> ```
 
 ## Setup Approaches
 
@@ -78,9 +51,6 @@ cd my-vueyouse
 
 ### Step 3: Install Dependencies
 
-> [!IMPORTANT]
-> If you're using mise, run `mise trust` before installing dependencies to enable version management.
-
 ```bash
 pnpm install
 ```
@@ -97,124 +67,50 @@ Your development server should now be running at `http://localhost:5173`. Open t
 
 If you prefer to understand every piece of the setup or want to customize your environment from scratch, follow these steps:
 
-### Step 1: Create Project Directory
+### Step 1: Create Vite Project
+
+Create a new Vite project with Vue and TypeScript:
 
 ```bash
-mkdir my-vueyouse
+pnpm create vite my-vueyouse --template vue-ts
 cd my-vueyouse
+pnpm install
 ```
 
-### Step 2: Initialize Package Manager
+### Step 2: Clean Up Unnecessary Files
+
+Remove the files we won't need for learning VueYous:
 
 ```bash
-pnpm init
+rm -rf src/assets src/components src/style.css public
 ```
 
-### Step 3: Install Core Dependencies
+### Step 3: Simplify App.vue and main.ts
 
-```bash
-pnpm add vue@^3.5.0
-pnpm add -D vite @vitejs/plugin-vue typescript vue-tsc
+Replace the contents of `src/App.vue` with a simple template:
+
+```vue
+<template>Hello VueYous!</template>
 ```
 
-### Step 4: Install Type Definitions
-
-```bash
-pnpm add -D @types/node @tsconfig/node24 @vue/tsconfig
-```
-
-### Step 5: Create Configuration Files
-
-Create the following files in your project root:
-
-**`tsconfig.json`**:
-
-```json
-{
-  "files": [],
-  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.app.json" }]
-}
-```
-
-**`tsconfig.app.json`**:
-
-```json
-{
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-  "exclude": ["src/**/__tests__/*"],
-  "compilerOptions": {
-    "composite": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
-}
-```
-
-**`tsconfig.node.json`**:
-
-```json
-{
-  "extends": "@tsconfig/node24/tsconfig.json",
-  "include": [
-    "vite.config.*",
-    "vitest.config.*",
-    "cypress.config.*",
-    "nightwatch.conf.*",
-    "playwright.config.*"
-  ],
-  "compilerOptions": {
-    "composite": true,
-    "noEmit": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "types": ["node"]
-  }
-}
-```
-
-**`vite.config.ts`**:
+Replace the contents of `src/main.ts` with a minimal setup:
 
 ```typescript
-import { fileURLToPath, URL } from "node:url";
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
+import { createApp } from "vue";
+import App from "./App.vue";
 
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
-  },
-});
+createApp(App).mount("#app");
 ```
 
-**`env.d.ts`**:
+### Step 4: Create Composables Directory
 
-```typescript
-/// <reference types="vite/client" />
+Create the `packages` directory where you'll build your composables:
+
+```bash
+mkdir packages
 ```
 
-### Step 6: Create Project Structure
-
-Create the following directory structure:
-
-```
-my-vueyouse/
-├── packages/             # Your composables library
-│   └── index.ts
-└── examples/             # Test playground (optional)
-    └── playground/
-```
-
-### Step 7: Create Your First Composable
-
-Create `packages/index.ts`:
+Create `packages/index.ts` with your first composable:
 
 ```typescript
 export function HelloVueYous() {
@@ -223,57 +119,92 @@ export function HelloVueYous() {
 }
 ```
 
-This is your starting point. As you learn, you'll add more composables to this file and export them.
-
 > [!TIP]
-> The `packages/` directory is where you'll build your own VueUse-style composables. Each composable you create will be exported from `index.ts`.
+> The `packages/` directory is where you'll build your VueUse-style composables. Each composable you create will be exported from `index.ts`.
 
-### Step 8: Add Scripts to package.json
+### Step 5: Configure TypeScript and Vite Aliases
 
-Update your `package.json` to include these scripts:
+Update `vite.config.ts` to add the `vueyouse` alias:
+
+```typescript
+import { fileURLToPath, URL } from "node:url";
+import vue from "@vitejs/plugin-vue";
+import { defineConfig } from "vite";
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      vueyouse: fileURLToPath(new URL("./packages", import.meta.url)),
+    },
+  },
+});
+```
+
+Update `tsconfig.app.json` to add TypeScript path mapping (add `baseUrl` and `paths` to `compilerOptions`, and add `packages/**/*.ts` to `include`):
 
 ```json
 {
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
-  }
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "vueyouse": ["./packages/index.ts"]
+    }
+    /* ... other compiler options ... */
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "packages/**/*.ts"]
 }
 ```
 
-### Step 9: Start Development Server
+> [!IMPORTANT]
+> The `vueyouse` alias allows you to import your composables from the `packages/` directory throughout your project.
+
+### Step 6: Import and Call HelloVueYous
+
+Update `src/main.ts` to import and call your first composable:
+
+```typescript
+import { createApp } from "vue";
+import { HelloVueYous } from "vueyouse";
+import App from "./App.vue";
+
+HelloVueYous();
+
+createApp(App).mount("#app");
+```
+
+### Step 7: Start Development Server
+
+Start the development server:
 
 ```bash
 pnpm run dev
 ```
 
-## Project Structure Overview
+## Core Learning Structure
 
-Regardless of which approach you chose, your project structure should look like this:
+The most important part of your VueYous project is the `packages/index.ts` file. This is where you'll build your VueUse-style composables throughout this guide.
 
-```
-my-vueyouse/
-├── src/
-│   ├── composables/      # Your VueUse-inspired composables
-│   ├── App.vue           # Main application component
-│   └── main.ts           # Application entry point
-├── public/               # Static assets
-├── node_modules/         # Dependencies
-├── index.html            # HTML template
-├── package.json          # Package configuration
-├── tsconfig.json         # TypeScript config
-├── tsconfig.app.json     # App-specific TS config
-├── tsconfig.node.json    # Node-specific TS config
-├── vite.config.ts        # Vite configuration
-└── env.d.ts              # Type definitions
+```typescript
+// packages/index.ts
+export function HelloVueYous() {
+  console.log("Hello VueYous!");
+}
+
+// As you learn, you'll add more composables here
+export function useCounter() {
+  /* ... */
+}
+export function useMouse() {
+  /* ... */
+}
 ```
 
-### Key Directories
-
-- **`src/composables/`**: This is where you'll create your custom composables as you work through the book
-- **`src/App.vue`**: Your playground for testing composables
-- **`public/`**: Static files that don't need processing
+The actual project structure may vary depending on your setup approach, but this core file remains the same.
 
 ## Verifying Your Setup
 
@@ -283,7 +214,7 @@ To verify everything is working correctly:
 2. Open `http://localhost:5173` in your browser
 3. Open the browser's Developer Console (F12 or right-click → Inspect → Console tab)
 4. You should see **"Hello VueYous!"** printed in the console
-5. Try editing `src/App.vue` and save - you should see the changes immediately (Hot Module Replacement)
+5. Try editing any file in your project and save - you should see the changes immediately (Hot Module Replacement)
 
 > [!TIP]
 > If you see "Hello VueYous!" in the console, congratulations! Your environment is set up correctly and ready for learning.

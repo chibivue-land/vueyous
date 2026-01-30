@@ -16,37 +16,10 @@ node --version
 pnpm --version
 ```
 
-### インストール方法
-
-#### オプション 1: 直接インストール
+以下からインストールできます：
 
 - Node.js: [https://nodejs.org/](https://nodejs.org/)
 - pnpm: [https://pnpm.io/installation](https://pnpm.io/installation)
-
-#### オプション 2: mise を使う（バージョン管理におすすめ）
-
-複数の Node.js や pnpm のバージョンを管理したい場合や、チーム全体で一貫したバージョンを使用したい場合は、[mise](https://mise.jdx.dev/) の使用を推奨します：
-
-```bash
-# mise をインストール（まだインストールしていない場合）
-curl https://mise.run | sh
-
-# Node.js と pnpm をグローバルにインストール
-mise use -g node@24.13.0
-mise use -g pnpm@10.28.2
-
-# インストールを確認
-node --version
-pnpm --version
-```
-
-> [!TIP]
-> `create-vueyouse` で作成したプロジェクトには `mise.toml` ファイルが含まれており、これらのバージョンが固定されています。プロジェクトに移動して以下を実行してください：
->
-> ```bash
-> mise trust  # セキュリティのため必須
-> mise install
-> ```
 
 ## セットアップのアプローチ
 
@@ -78,9 +51,6 @@ cd my-vueyouse
 
 ### ステップ 3: 依存関係をインストール
 
-> [!IMPORTANT]
-> mise を使用している場合は、依存関係をインストールする前に `mise trust` を実行してバージョン管理を有効にしてください。
-
 ```bash
 pnpm install
 ```
@@ -97,124 +67,50 @@ pnpm run dev
 
 セットアップの各部分を理解したい場合や、ゼロから環境をカスタマイズしたい場合は、以下の手順に従ってください：
 
-### ステップ 1: プロジェクトディレクトリを作成
+### ステップ 1: Vite プロジェクトを作成
+
+Vue と TypeScript を使った新しい Vite プロジェクトを作成します：
 
 ```bash
-mkdir my-vueyouse
+pnpm create vite my-vueyouse --template vue-ts
 cd my-vueyouse
+pnpm install
 ```
 
-### ステップ 2: パッケージマネージャーを初期化
+### ステップ 2: 不要なファイルを削除
+
+VueYous の学習に不要なファイルを削除します：
 
 ```bash
-pnpm init
+rm -rf src/assets src/components src/style.css public
 ```
 
-### ステップ 3: コア依存関係をインストール
+### ステップ 3: App.vue と main.ts をシンプルにする
 
-```bash
-pnpm add vue@^3.5.0
-pnpm add -D vite @vitejs/plugin-vue typescript vue-tsc
+`src/App.vue` の内容をシンプルなテンプレートに置き換えます：
+
+```vue
+<template>Hello VueYous!</template>
 ```
 
-### ステップ 4: 型定義をインストール
-
-```bash
-pnpm add -D @types/node @tsconfig/node24 @vue/tsconfig
-```
-
-### ステップ 5: 設定ファイルを作成
-
-プロジェクトルートに以下のファイルを作成します：
-
-**`tsconfig.json`**:
-
-```json
-{
-  "files": [],
-  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.app.json" }]
-}
-```
-
-**`tsconfig.app.json`**:
-
-```json
-{
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-  "exclude": ["src/**/__tests__/*"],
-  "compilerOptions": {
-    "composite": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
-}
-```
-
-**`tsconfig.node.json`**:
-
-```json
-{
-  "extends": "@tsconfig/node24/tsconfig.json",
-  "include": [
-    "vite.config.*",
-    "vitest.config.*",
-    "cypress.config.*",
-    "nightwatch.conf.*",
-    "playwright.config.*"
-  ],
-  "compilerOptions": {
-    "composite": true,
-    "noEmit": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "types": ["node"]
-  }
-}
-```
-
-**`vite.config.ts`**:
+`src/main.ts` の内容を最小限のセットアップに置き換えます：
 
 ```typescript
-import { fileURLToPath, URL } from "node:url";
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
+import { createApp } from "vue";
+import App from "./App.vue";
 
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
-  },
-});
+createApp(App).mount("#app");
 ```
 
-**`env.d.ts`**:
+### ステップ 4: コンポーザブル用ディレクトリを作成
 
-```typescript
-/// <reference types="vite/client" />
+コンポーザブルを構築する `packages` ディレクトリを作成します：
+
+```bash
+mkdir packages
 ```
 
-### ステップ 6: プロジェクト構造を作成
-
-以下のディレクトリ構造を作成します：
-
-```
-my-vueyouse/
-├── packages/             # コンポーザブルライブラリ
-│   └── index.ts
-└── examples/             # テスト用playground（オプション）
-    └── playground/
-```
-
-### ステップ 7: 最初のコンポーザブルを作成
-
-`packages/index.ts` を作成します：
+最初のコンポーザブルとして `packages/index.ts` を作成します：
 
 ```typescript
 export function HelloVueYous() {
@@ -223,100 +119,92 @@ export function HelloVueYous() {
 }
 ```
 
-これが出発点です。学習を進めるにつれて、このファイルにコンポーザブルを追加してエクスポートしていきます。
-
 > [!TIP]
 > `packages/` ディレクトリは、VueUse スタイルのコンポーザブルを構築する場所です。作成した各コンポーザブルは `index.ts` からエクスポートされます。
 
-### ステップ 8: package.json にスクリプトを追加
+### ステップ 5: TypeScript と Vite のエイリアスを設定
 
-`package.json` を更新して、以下のスクリプトを含めます：
+`vite.config.ts` を更新して `vueyouse` エイリアスを追加します：
+
+```typescript
+import { fileURLToPath, URL } from "node:url";
+import vue from "@vitejs/plugin-vue";
+import { defineConfig } from "vite";
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      vueyouse: fileURLToPath(new URL("./packages", import.meta.url)),
+    },
+  },
+});
+```
+
+`tsconfig.app.json` を更新して TypeScript のパスマッピングを追加します（`compilerOptions` に `baseUrl` と `paths` を追加し、`include` に `packages/**/*.ts` を追加）：
 
 ```json
 {
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
-  }
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "vueyouse": ["./packages/index.ts"]
+    }
+    /* ... その他のコンパイラオプション ... */
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "packages/**/*.ts"]
 }
 ```
 
-### ステップ 9: 開発サーバーを起動
+> [!IMPORTANT]
+> `vueyouse` エイリアスにより、プロジェクト全体で `packages/` ディレクトリからコンポーザブルをインポートできるようになります。
+
+### ステップ 6: HelloVueYous をインポートして呼び出す
+
+`src/main.ts` を更新して、最初のコンポーザブルをインポートして呼び出します：
+
+```typescript
+import { createApp } from "vue";
+import { HelloVueYous } from "vueyouse";
+import App from "./App.vue";
+
+HelloVueYous();
+
+createApp(App).mount("#app");
+```
+
+### ステップ 7: 開発サーバーを起動
+
+開発サーバーを起動します：
 
 ```bash
 pnpm run dev
 ```
 
-## プロジェクト構造の概要
+## 学習の核となる構造
 
-どちらのアプローチを選んでも、プロジェクト構造は以下のようになります：
+VueYous プロジェクトで最も重要なのは `packages/index.ts` ファイルです。このガイド全体を通して、ここに VueUse スタイルのコンポーザブルを構築していきます。
 
-```
-my-vueyouse/
-├── src/
-│   ├── composables/      # VueUse にインスパイアされたコンポーザブル
-│   ├── App.vue           # メインアプリケーションコンポーネント
-│   └── main.ts           # アプリケーションエントリーポイント
-├── public/               # 静的アセット
-├── node_modules/         # 依存関係
-├── index.html            # HTML テンプレート
-├── package.json          # パッケージ設定
-├── tsconfig.json         # TypeScript 設定
-├── tsconfig.app.json     # アプリ固有の TS 設定
-├── tsconfig.node.json    # Node 固有の TS 設定
-├── vite.config.ts        # Vite 設定
-└── env.d.ts              # 型定義
+```typescript
+// packages/index.ts
+export function HelloVueYous() {
+  console.log("Hello VueYous!");
+}
+
+// 学習を進めるにつれて、ここにコンポーザブルを追加していきます
+export function useCounter() {
+  /* ... */
+}
+export function useMouse() {
+  /* ... */
+}
 ```
 
-### ビジュアル概要
-
-ファイルとディレクトリの関係は以下の通りです：
-
-```mermaid
-graph TB
-    subgraph Project["📁 my-vueyouse（プロジェクトルート）"]
-        subgraph Source["📁 src（アプリケーションソース）"]
-            Composables["📁 composables/<br/>カスタムコンポーザブル"]
-            AppVue["📄 App.vue<br/>ルートコンポーネント"]
-            MainTs["📄 main.ts<br/>エントリーポイント"]
-        end
-
-        subgraph Public["📁 public"]
-            StaticFiles["🖼️ 静的アセット<br/>（画像、フォントなど）"]
-        end
-
-        subgraph Config["⚙️ 設定ファイル"]
-            IndexHTML["📄 index.html"]
-            PackageJSON["📄 package.json"]
-            ViteConfig["📄 vite.config.ts"]
-            TSConfigRoot["📄 tsconfig.json"]
-            TSConfigApp["📄 tsconfig.app.json"]
-            TSConfigNode["📄 tsconfig.node.json"]
-            EnvDTS["📄 env.d.ts"]
-        end
-
-        NodeModules["📦 node_modules"]
-    end
-
-    IndexHTML -.->|読み込み| MainTs
-    MainTs -->|インポート| AppVue
-    AppVue -->|使用| Composables
-    ViteConfig -.->|バンドル| Source
-    PackageJSON -->|インストール| NodeModules
-
-    style Project fill:#f9f9f9
-    style Source fill:#e3f2fd
-    style Public fill:#fff3e0
-    style Config fill:#f3e5f5
-    style Composables fill:#c8e6c9
-```
-
-### 主要なディレクトリ
-
-- **`src/composables/`**: この本を進めながら、カスタムコンポーザブルを作成する場所
-- **`src/App.vue`**: コンポーザブルをテストするためのプレイグラウンド
-- **`public/`**: 処理が不要な静的ファイル
+実際のプロジェクト構造はセットアップ方法によって異なる場合がありますが、このコアファイルは変わりません。
 
 ## セットアップの確認
 
@@ -326,7 +214,7 @@ graph TB
 2. ブラウザで `http://localhost:5173` を開く
 3. ブラウザの開発者コンソールを開く（F12 または右クリック → 検証 → Console タブ）
 4. コンソールに **"Hello VueYous!"** が表示されていることを確認
-5. `src/App.vue` を編集して保存してみてください - 変更がすぐに反映されます（ホットモジュールリプレースメント）
+5. プロジェクト内の任意のファイルを編集して保存してみてください - 変更がすぐに反映されます（ホットモジュールリプレースメント）
 
 > [!TIP]
 > コンソールに "Hello VueYous!" が表示されていれば、おめでとうございます！環境が正しくセットアップされ、学習の準備が整いました。

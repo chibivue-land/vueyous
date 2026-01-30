@@ -42,6 +42,7 @@ pnpm --version
 
 > [!TIP]
 > `create-vueyouse` で作成したプロジェクトには `mise.toml` ファイルが含まれており、これらのバージョンが固定されています。プロジェクトに移動して以下を実行してください：
+>
 > ```bash
 > mise trust  # セキュリティのため必須
 > mise install

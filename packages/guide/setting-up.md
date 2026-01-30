@@ -42,6 +42,7 @@ pnpm --version
 
 > [!TIP]
 > When you create a VueYous project with `create-vueyouse`, it includes a `mise.toml` file that locks these versions. Navigate to your project and run:
+>
 > ```bash
 > mise trust  # Required for security
 > mise install

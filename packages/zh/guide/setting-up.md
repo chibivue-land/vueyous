@@ -42,6 +42,7 @@ pnpm --version
 
 > [!TIP]
 > 使用 `create-vueyouse` 创建的项目包含 `mise.toml` 文件，锁定了这些版本。进入项目后运行：
+>
 > ```bash
 > mise trust  # 出于安全考虑必需
 > mise install

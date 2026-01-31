@@ -43,10 +43,12 @@ This command will:
 - Copy all necessary template files
 - Set up the project structure for learning
 
-### Step 2: Navigate to Your Project
+### Step 2: Navigate to Playground Directory
+
+The tool creates your composables in `packages/` and a development environment in `playground/`. Navigate to the playground directory:
 
 ```bash
-cd my-vueyouse
+cd my-vueyouse/playground
 ```
 
 ### Step 3: Install Dependencies

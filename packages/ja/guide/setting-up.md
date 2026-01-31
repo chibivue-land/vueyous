@@ -45,8 +45,10 @@ pnpm dlx tsx tools/create-vueyouse/main.ts my-vueyouse
 
 ### ステップ 2: プロジェクトに移動
 
+ツールはコンポーザブルを `packages/` に、開発環境を `playground/` に作成します。playground ディレクトリに移動します。
+
 ```bash
-cd my-vueyouse
+cd my-vueyouse/playground
 ```
 
 ### ステップ 3: 依存関係をインストール

@@ -45,8 +45,10 @@ pnpm dlx tsx tools/create-vueyouse/main.ts my-vueyouse
 
 ### 步骤 2: 进入项目目录
 
+该工具会在 `packages/` 中创建您的组合式函数，在 `playground/` 中创建开发环境。进入 playground 目录：
+
 ```bash
-cd my-vueyouse
+cd my-vueyouse/playground
 ```
 
 ### 步骤 3: 安装依赖

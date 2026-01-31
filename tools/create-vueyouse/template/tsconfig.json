@@ -6,11 +6,11 @@
     "moduleResolution": "node",
     "allowJs": true,
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "vueyouse": ["./packages/"]
+    }
   },
-  "include": ["packages/**/*.ts", "examples/**/*.ts"],
-  "paths": {
-    "vueyouse": ["./packages/"]
-  },
+  "include": ["packages/**/*.ts", "playground/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

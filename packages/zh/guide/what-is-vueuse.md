@@ -63,23 +63,23 @@ const { x, y } = useMouse();
 
 ## 主要优势
 
-### 1. **可重用性**
+### 1. 可重用性
 
 编写一次逻辑，随处使用。可组合函数可以在组件之间甚至项目之间共享。
 
-### 2. **类型安全**
+### 2. 类型安全
 
 VueUse 使用 TypeScript 编写，提供出色的类型推断，在编译时捕获错误。
 
-### 3. **Tree-shakable（可摇树优化）**
+### 3. Tree-shakable（可摇树优化）
 
 只有您使用的可组合函数才会包含在最终捆绑包中，从而保持应用程序的精简。
 
-### 4. **SSR 友好**
+### 4. SSR 友好
 
 许多 VueUse 函数在 Nuxt 等服务器端渲染环境中无缝工作。
 
-### 5. **经过充分测试**
+### 5. 经过充分测试
 
 每个可组合函数都经过全面测试，并被成千上万的开发人员在生产环境中使用。
 
@@ -87,17 +87,17 @@ VueUse 使用 TypeScript 编写，提供出色的类型推断，在编译时捕�
 
 VueUse 将其 200 多个函数组织为逻辑类别：
 
-- **State（状态）**：响应式状态管理（`useLocalStorage`、`useSessionStorage`、`useToggle`）
-- **Elements（元素）**：DOM 元素交互（`useEventListener`、`useIntersectionObserver`）
-- **Browser（浏览器）**：浏览器 API（`useDark`、`useMediaQuery`、`useClipboard`）
-- **Sensors（传感器）**：用户输入检测（`useMouse`、`useKeyboard`、`useSwipe`）
-- **Network（网络）**：网络请求和连接性（`useFetch`、`useWebSocket`）
-- **Animation（动画）**：时序和过渡（`useInterval`、`useTimeout`、`useTransition`）
-- **Component（组件）**：组件实用工具（`useVModel`、`useTemplateRef`）
-- **Watch（监听）**：增强型监听器（`watchDebounced`、`watchThrottled`、`until`）
-- **Reactivity（响应性）**：高级响应性模式（`computedAsync`、`refDebounced`）
-- **Array（数组）**：响应式数组操作（`useArrayMap`、`useArrayFilter`）
-- **Utilities（实用工具）**：辅助函数（`createSharedComposable`、`until`、`whenever`）
+- State（状态）：响应式状态管理（`useLocalStorage`、`useSessionStorage`、`useToggle`）
+- Elements（元素）：DOM 元素交互（`useEventListener`、`useIntersectionObserver`）
+- Browser（浏览器）：浏览器 API（`useDark`、`useMediaQuery`、`useClipboard`）
+- Sensors（传感器）：用户输入检测（`useMouse`、`useKeyboard`、`useSwipe`）
+- Network（网络）：网络请求和连接性（`useFetch`、`useWebSocket`）
+- Animation（动画）：时序和过渡（`useInterval`、`useTimeout`、`useTransition`）
+- Component（组件）：组件实用工具（`useVModel`、`useTemplateRef`）
+- Watch（监听）：增强型监听器（`watchDebounced`、`watchThrottled`、`until`）
+- Reactivity（响应性）：高级响应性模式（`computedAsync`、`refDebounced`）
+- Array（数组）：响应式数组操作（`useArrayMap`、`useArrayFilter`）
+- Utilities（实用工具）：辅助函数（`createSharedComposable`、`until`、`whenever`）
 
 ## 本书的学习方法
 

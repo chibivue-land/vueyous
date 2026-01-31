@@ -45,8 +45,10 @@ pnpm dlx tsx tools/create-vueyouse/main.ts my-vueyouse
 
 ### 步骤 2: 进入项目目录
 
+该工具会在 `packages/` 中创建您的组合式函数，在 `playground/` 中创建开发环境。进入 playground 目录：
+
 ```bash
-cd my-vueyouse
+cd my-vueyouse/playground
 ```
 
 ### 步骤 3: 安装依赖
@@ -142,7 +144,7 @@ export default defineConfig({
 });
 ```
 
-更新 `tsconfig.app.json` 添加 TypeScript 路径映射（在 `compilerOptions` 中添加 `baseUrl` 和 `paths`，在 `include` 中添加 `packages/**/*.ts`）：
+更新 `tsconfig.app.json` 添加 TypeScript 路径映射（在 `compilerOptions` 中添加 `baseUrl` 和 `paths`，在 `include` 中添加 `packages/**/*.ts`）。
 
 ```json
 {

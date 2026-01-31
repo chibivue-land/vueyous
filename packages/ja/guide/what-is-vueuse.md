@@ -4,7 +4,7 @@
 
 ## VueUseが解決する問題
 
-Vue アプリケーションを構築する際、同じパターンを何度も書いていることに気づくことがあります：
+Vue アプリケーションを構築する際、同じパターンを何度も書いていることに気づくことがあります。
 
 - ウィンドウリサイズリスナーの管理
 - マウスとキーボードイベントの処理
@@ -20,7 +20,7 @@ VueUse は、これらの一般的な問題に対して、実戦でテストさ�
 
 ### 例: VueUseを使わない場合
 
-VueUse を使わずにマウスの位置を追跡する場合は次のようになります：
+VueUse を使わずにマウスの位置を追跡する場合は次のようになります。
 
 ```vue
 <script setup lang="ts">
@@ -45,7 +45,7 @@ onUnmounted(() => window.removeEventListener("mousemove", update));
 
 ### 例: VueUseを使う場合
 
-VueUse の`useMouse`コンポーザブルを使うと、同じ機能がはるかにシンプルになります：
+VueUse の`useMouse`コンポーザブルを使うと、同じ機能がはるかにシンプルになります。
 
 ```vue
 <script setup lang="ts">
@@ -63,45 +63,45 @@ VueUse がライフサイクル管理、クリーンアップ、エッジケー�
 
 ## 主な利点
 
-### 1. **再利用性**
+### 1. 再利用性
 
 一度ロジックを書けば、どこでも使えます。コンポーザブルはコンポーネント間やプロジェクト間で共有できます。
 
-### 2. **型安全性**
+### 2. 型安全性
 
 VueUse は TypeScript で書かれており、優れた型推論を提供し、コンパイル時にエラーをキャッチします。
 
-### 3. **ツリーシェイキング対応**
+### 3. ツリーシェイキング対応
 
 使用するコンポーザブルだけが最終的なバンドルに含まれるため、アプリケーションを軽量に保つことができます。
 
-### 4. **SSRフレンドリー**
+### 4. SSRフレンドリー
 
 多くの VueUse 関数は、Nuxt のようなサーバーサイドレンダリング環境でシームレスに動作します。
 
-### 5. **十分にテストされている**
+### 5. 十分にテストされている
 
 すべてのコンポーザブルは徹底的にテストされており、何千人もの開発者によって本番環境で使用されています。
 
 ## VueUse関数のカテゴリー
 
-VueUse は 200 以上の関数を論理的なカテゴリーに整理しています：
+VueUse は 200 以上の関数を論理的なカテゴリーに整理しています。
 
-- **State（状態）**: リアクティブ状態管理（`useLocalStorage`、`useSessionStorage`、`useToggle`）
-- **Elements（要素）**: DOM 要素とのインタラクション（`useEventListener`、`useIntersectionObserver`）
-- **Browser（ブラウザ）**: ブラウザ API（`useDark`、`useMediaQuery`、`useClipboard`）
-- **Sensors（センサー）**: ユーザー入力検出（`useMouse`、`useKeyboard`、`useSwipe`）
-- **Network（ネットワーク）**: ネットワークリクエストと接続性（`useFetch`、`useWebSocket`）
-- **Animation（アニメーション）**: タイミングとトランジション（`useInterval`、`useTimeout`、`useTransition`）
-- **Component（コンポーネント）**: コンポーネントユーティリティ（`useVModel`、`useTemplateRef`）
-- **Watch（監視）**: 拡張ウォッチャー（`watchDebounced`、`watchThrottled`、`until`）
-- **Reactivity（リアクティビティ）**: 高度なリアクティビティパターン（`computedAsync`、`refDebounced`）
-- **Array（配列）**: リアクティブ配列操作（`useArrayMap`、`useArrayFilter`）
-- **Utilities（ユーティリティ）**: ヘルパー関数（`createSharedComposable`、`until`、`whenever`）
+- State（状態）: リアクティブ状態管理（`useLocalStorage`、`useSessionStorage`、`useToggle`）
+- Elements（要素）: DOM 要素とのインタラクション（`useEventListener`、`useIntersectionObserver`）
+- Browser（ブラウザ）: ブラウザ API（`useDark`、`useMediaQuery`、`useClipboard`）
+- Sensors（センサー）: ユーザー入力検出（`useMouse`、`useKeyboard`、`useSwipe`）
+- Network（ネットワーク）: ネットワークリクエストと接続性（`useFetch`、`useWebSocket`）
+- Animation（アニメーション）: タイミングとトランジション（`useInterval`、`useTimeout`、`useTransition`）
+- Component（コンポーネント）: コンポーネントユーティリティ（`useVModel`、`useTemplateRef`）
+- Watch（監視）: 拡張ウォッチャー（`watchDebounced`、`watchThrottled`、`until`）
+- Reactivity（リアクティビティ）: 高度なリアクティビティパターン（`computedAsync`、`refDebounced`）
+- Array（配列）: リアクティブ配列操作（`useArrayMap`、`useArrayFilter`）
+- Utilities（ユーティリティ）: ヘルパー関数（`createSharedComposable`、`until`、`whenever`）
 
 ## この本での学習アプローチ
 
-VueUse の関数を使うだけでなく、この本では**自分で構築する方法**を教えます。VueUse コンポーザブルの簡略版を再現することで：
+VueUse の関数を使うだけでなく、この本では**自分で構築する方法**を教えます。VueUse コンポーザブルの簡略版を再現することで、次のことができるようになります。
 
 - 内部でどのように動作しているかを**理解**できます
 - 特定のパターンが使われている**理由**を学べます

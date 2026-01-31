@@ -1,4 +1,16 @@
 {
-  "files": [],
-  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": ["dom", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "paths": {
+      "vueyouse": ["./packages/"]
+    }
+  },
+  "include": ["packages/**/*.ts", "playground/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -63,23 +63,23 @@ Notice how VueUse handles the lifecycle management, cleanup, and edge cases for 
 
 ## Key Benefits
 
-### 1. **Reusability**
+### 1. Reusability
 
 Write logic once, use it anywhere. Composables can be shared across components and even projects.
 
-### 2. **Type Safety**
+### 2. Type Safety
 
 VueUse is written in TypeScript and provides excellent type inference, catching errors at compile time.
 
-### 3. **Tree-shakable**
+### 3. Tree-shakable
 
 Only the composables you use are included in your final bundle, keeping your application lean.
 
-### 4. **SSR Friendly**
+### 4. SSR Friendly
 
 Many VueUse functions work seamlessly in server-side rendering environments like Nuxt.
 
-### 5. **Well-tested**
+### 5. Well-tested
 
 Every composable is thoroughly tested and used in production by thousands of developers.
 
@@ -87,17 +87,17 @@ Every composable is thoroughly tested and used in production by thousands of dev
 
 VueUse organizes its 200+ functions into logical categories:
 
-- **State**: Reactive state management (`useLocalStorage`, `useSessionStorage`, `useToggle`)
-- **Elements**: DOM element interactions (`useEventListener`, `useIntersectionObserver`)
-- **Browser**: Browser APIs (`useDark`, `useMediaQuery`, `useClipboard`)
-- **Sensors**: User input detection (`useMouse`, `useKeyboard`, `useSwipe`)
-- **Network**: Network requests and connectivity (`useFetch`, `useWebSocket`)
-- **Animation**: Timing and transitions (`useInterval`, `useTimeout`, `useTransition`)
-- **Component**: Component utilities (`useVModel`, `useTemplateRef`)
-- **Watch**: Enhanced watchers (`watchDebounced`, `watchThrottled`, `until`)
-- **Reactivity**: Advanced reactivity patterns (`computedAsync`, `refDebounced`)
-- **Array**: Reactive array operations (`useArrayMap`, `useArrayFilter`)
-- **Utilities**: Helper functions (`createSharedComposable`, `until`, `whenever`)
+- State: Reactive state management (`useLocalStorage`, `useSessionStorage`, `useToggle`)
+- Elements: DOM element interactions (`useEventListener`, `useIntersectionObserver`)
+- Browser: Browser APIs (`useDark`, `useMediaQuery`, `useClipboard`)
+- Sensors: User input detection (`useMouse`, `useKeyboard`, `useSwipe`)
+- Network: Network requests and connectivity (`useFetch`, `useWebSocket`)
+- Animation: Timing and transitions (`useInterval`, `useTimeout`, `useTransition`)
+- Component: Component utilities (`useVModel`, `useTemplateRef`)
+- Watch: Enhanced watchers (`watchDebounced`, `watchThrottled`, `until`)
+- Reactivity: Advanced reactivity patterns (`computedAsync`, `refDebounced`)
+- Array: Reactive array operations (`useArrayMap`, `useArrayFilter`)
+- Utilities: Helper functions (`createSharedComposable`, `until`, `whenever`)
 
 ## Learning Approach in This Book
 

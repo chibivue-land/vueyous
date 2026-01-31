@@ -1,22 +1,22 @@
 # 開発環境のセットアップ
 
-コンポーザブルの作成に入る前に、VueYous を学ぶための適切な開発環境をセットアップしましょう。この章では、便利なセットアップツールを使う方法と、手動で環境を構築する方法の 2 つのアプローチを説明します。
+コンポーザブルの作成に入る前に、VueYous を学ぶための開発環境をセットアップしましょう。この章では、便利なセットアップツールを使う方法と、手動で環境を構築する方法の 2 つのアプローチを説明します。
 
 ## 前提条件
 
-始める前に、以下がインストールされていることを確認してください：
+始める前に、以下がインストールされていることを確認してください
 
 - **Node.js**（v24.13.0 以上）
 - **pnpm**（v10.28.2 以上）
 
-以下のコマンドを実行してインストールを確認できます：
+以下のコマンドを実行してインストールを確認できます。
 
 ```bash
 node --version
 pnpm --version
 ```
 
-以下からインストールできます：
+以下からインストールできます。
 
 - Node.js: [https://nodejs.org/](https://nodejs.org/)
 - pnpm: [https://pnpm.io/installation](https://pnpm.io/installation)
@@ -31,13 +31,13 @@ VueYous の学習環境をセットアップする方法は 2 つあります。
 
 ### ステップ 1: プロジェクトを作成
 
-以下のコマンドを実行します。`my-vueyouse` は任意のディレクトリ名に置き換えてください：
+以下のコマンドを実行します。`my-vueyouse` は任意のディレクトリ名に置き換えてください。
 
 ```bash
 pnpm dlx tsx tools/create-vueyouse/main.ts my-vueyouse
 ```
 
-このコマンドは以下を行います：
+このコマンドは以下を行います。
 
 - 指定した名前で新しいディレクトリを作成
 - 必要なテンプレートファイルをすべてコピー
@@ -45,8 +45,10 @@ pnpm dlx tsx tools/create-vueyouse/main.ts my-vueyouse
 
 ### ステップ 2: プロジェクトに移動
 
+ツールはコンポーザブルを `packages/` に、開発環境を `playground/` に作成します。playground ディレクトリに移動します。
+
 ```bash
-cd my-vueyouse
+cd my-vueyouse/playground
 ```
 
 ### ステップ 3: 依存関係をインストール
@@ -69,7 +71,7 @@ pnpm run dev
 
 ### ステップ 1: Vite プロジェクトを作成
 
-Vue と TypeScript を使った新しい Vite プロジェクトを作成します：
+Vue と TypeScript を使った新しい Vite プロジェクトを作成します。
 
 ```bash
 pnpm create vite my-vueyouse --template vue-ts
@@ -79,7 +81,7 @@ pnpm install
 
 ### ステップ 2: 不要なファイルを削除
 
-VueYous の学習に不要なファイルを削除します：
+VueYous の学習に不要なファイルを削除します。
 
 ```bash
 rm -rf src/assets src/components src/style.css public
@@ -87,13 +89,13 @@ rm -rf src/assets src/components src/style.css public
 
 ### ステップ 3: App.vue と main.ts をシンプルにする
 
-`src/App.vue` の内容をシンプルなテンプレートに置き換えます：
+`src/App.vue` の内容をシンプルなテンプレートに置き換えます。
 
 ```vue
 <template>Hello VueYous!</template>
 ```
 
-`src/main.ts` の内容を最小限のセットアップに置き換えます：
+`src/main.ts` の内容を最小限のセットアップに置き換えます。
 
 ```typescript
 import { createApp } from "vue";
@@ -104,13 +106,13 @@ createApp(App).mount("#app");
 
 ### ステップ 4: コンポーザブル用ディレクトリを作成
 
-コンポーザブルを構築する `packages` ディレクトリを作成します：
+コンポーザブルを構築する `packages` ディレクトリを作成します。
 
 ```bash
 mkdir packages
 ```
 
-最初のコンポーザブルとして `packages/index.ts` を作成します：
+最初のコンポーザブルとして `packages/index.ts` を作成します。
 
 ```typescript
 export function HelloVueYous() {
@@ -124,7 +126,7 @@ export function HelloVueYous() {
 
 ### ステップ 5: TypeScript と Vite のエイリアスを設定
 
-`vite.config.ts` を更新して `vueyouse` エイリアスを追加します：
+`vite.config.ts` を更新して `vueyouse` エイリアスを追加します。
 
 ```typescript
 import { fileURLToPath, URL } from "node:url";
@@ -142,7 +144,7 @@ export default defineConfig({
 });
 ```
 
-`tsconfig.app.json` を更新して TypeScript のパスマッピングを追加します（`compilerOptions` に `baseUrl` と `paths` を追加し、`include` に `packages/**/*.ts` を追加）：
+`tsconfig.app.json` を更新して TypeScript のパスマッピングを追加します（`compilerOptions` に `baseUrl` と `paths` を追加し、`include` に `packages/**/*.ts` を追加）。
 
 ```json
 {
@@ -165,7 +167,7 @@ export default defineConfig({
 
 ### ステップ 6: HelloVueYous をインポートして呼び出す
 
-`src/main.ts` を更新して、最初のコンポーザブルをインポートして呼び出します：
+`src/main.ts` を更新して、最初のコンポーザブルをインポートして呼び出します。
 
 ```typescript
 import { createApp } from "vue";
@@ -179,7 +181,7 @@ createApp(App).mount("#app");
 
 ### ステップ 7: 開発サーバーを起動
 
-開発サーバーを起動します：
+開発サーバーを起動します。
 
 ```bash
 pnpm run dev
@@ -208,7 +210,7 @@ export function useMouse() {
 
 ## セットアップの確認
 
-すべてが正しく動作しているか確認するには：
+すべてが正しく動作しているか確認するには次のようにします。
 
 1. 開発サーバーが起動していることを確認（`pnpm run dev`）
 2. ブラウザで `http://localhost:5173` を開く

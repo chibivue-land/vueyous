@@ -1,6 +1,11 @@
 # 開発環境のセットアップ
 
-コンポーザブルの作成に入る前に、VueYous を学ぶための適切な開発環境をセットアップしましょう。この章では、便利なセットアップツールを使う方法と、手動で環境を構築する方法の 2 つのアプローチを説明します。
+コンポーザブルの作成に入る前に、VueYous を学ぶための開発環境をセットアップしましょう。
+
+VueYous は **Vue.js の API を含めて自作する**アプローチを取ります。つまり、`ref`, `computed`, `watchEffect` といったリアクティビティシステムをミニマルな実装で理解してから、その上で VueUse スタイルのコンポーザブルを構築していきます。
+
+> [!TIP]
+> このアプローチは [chibivue](https://github.com/chibivue-land/chibivue) や [chibivitest](https://github.com/chibivue-land/chibivitest)、[chibinuxt](https://github.com/chibivue-land/chibinuxt) と同じ「chibi（ミニマル）」の精神に基づいています。既存の API をそのまま使うのではなく、根本から実装することで、仕組みを深く理解できます。
 
 ## 前提条件
 
@@ -55,66 +60,102 @@ cd my-vueyouse
 pnpm install
 ```
 
-### ステップ 4: 開発サーバーを起動
+### ステップ 4: 実行して確認
 
 ```bash
 pnpm run dev
 ```
 
-開発サーバーが `http://localhost:5173` で起動するはずです。ブラウザでこの URL を開けば、学習を始める準備が整いました！
+コンソールに **"Hello VueYous!"** が表示されれば成功です！
 
 ## アプローチ 2: 手動セットアップ
 
 セットアップの各部分を理解したい場合や、ゼロから環境をカスタマイズしたい場合は、以下の手順に従ってください：
 
-### ステップ 1: Vite プロジェクトを作成
-
-Vue と TypeScript を使った新しい Vite プロジェクトを作成します：
+### ステップ 1: プロジェクトディレクトリを作成
 
 ```bash
-pnpm create vite my-vueyouse --template vue-ts
+mkdir my-vueyouse
 cd my-vueyouse
-pnpm install
+pnpm init
 ```
 
-### ステップ 2: 不要なファイルを削除
-
-VueYous の学習に不要なファイルを削除します：
+### ステップ 2: 依存関係をインストール
 
 ```bash
-rm -rf src/assets src/components src/style.css public
+pnpm add -D typescript tsx @types/node
 ```
 
-### ステップ 3: App.vue と main.ts をシンプルにする
+> [!NOTE]
+> - **TypeScript**: 型安全性のため
+> - **tsx**: TypeScript ファイルを直接実行するため
+> - **@types/node**: Node.js の型定義
 
-`src/App.vue` の内容をシンプルなテンプレートに置き換えます：
+### ステップ 3: TypeScript の設定
 
-```vue
-<template>Hello VueYous!</template>
+`tsconfig.json` を作成します：
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "vueyouse": ["./packages/index.ts"]
+    }
+  },
+  "include": ["src/**/*", "packages/**/*"]
+}
 ```
 
-`src/main.ts` の内容を最小限のセットアップに置き換えます：
+> [!IMPORTANT]
+> `paths` の `"vueyouse": ["./packages/index.ts"]` により、プロジェクト全体で `vueyouse` というエイリアスを使ってコンポーザブルをインポートできます。
+
+### ステップ 4: package.json にスクリプトを追加
+
+`package.json` に以下を追加します：
+
+```json
+{
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --watch src/main.ts"
+  }
+}
+```
+
+> [!TIP]
+> `--watch` フラグにより、ファイルを保存するたびに自動的に再実行されます（ホットリロード）。
+
+### ステップ 5: ディレクトリ構造を作成
+
+```bash
+mkdir src packages
+```
+
+### ステップ 6: エントリーポイントを作成
+
+`src/main.ts` を作成します：
 
 ```typescript
-import { createApp } from "vue";
-import App from "./App.vue";
+import { HelloVueYous } from "vueyouse";
 
-createApp(App).mount("#app");
+HelloVueYous();
 ```
 
-### ステップ 4: コンポーザブル用ディレクトリを作成
+### ステップ 7: 最初のコンポーザブルを作成
 
-コンポーザブルを構築する `packages` ディレクトリを作成します：
-
-```bash
-mkdir packages
-```
-
-最初のコンポーザブルとして `packages/index.ts` を作成します：
+`packages/index.ts` を作成します：
 
 ```typescript
 export function HelloVueYous() {
-  // eslint-disable-next-line no-console
   console.log("Hello VueYous!");
 }
 ```
@@ -122,144 +163,112 @@ export function HelloVueYous() {
 > [!TIP]
 > `packages/` ディレクトリは、VueUse スタイルのコンポーザブルを構築する場所です。作成した各コンポーザブルは `index.ts` からエクスポートされます。
 
-### ステップ 5: TypeScript と Vite のエイリアスを設定
-
-`vite.config.ts` を更新して `vueyouse` エイリアスを追加します：
-
-```typescript
-import { fileURLToPath, URL } from "node:url";
-import vue from "@vitejs/plugin-vue";
-import { defineConfig } from "vite";
-
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      vueyouse: fileURLToPath(new URL("./packages", import.meta.url)),
-    },
-  },
-});
-```
-
-`tsconfig.app.json` を更新して TypeScript のパスマッピングを追加します（`compilerOptions` に `baseUrl` と `paths` を追加し、`include` に `packages/**/*.ts` を追加）：
-
-```json
-{
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "types": ["vite/client"],
-    "baseUrl": ".",
-    "paths": {
-      "vueyouse": ["./packages/index.ts"]
-    }
-    /* ... その他のコンパイラオプション ... */
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "packages/**/*.ts"]
-}
-```
-
-> [!IMPORTANT]
-> `vueyouse` エイリアスにより、プロジェクト全体で `packages/` ディレクトリからコンポーザブルをインポートできるようになります。
-
-### ステップ 6: HelloVueYous をインポートして呼び出す
-
-`src/main.ts` を更新して、最初のコンポーザブルをインポートして呼び出します：
-
-```typescript
-import { createApp } from "vue";
-import { HelloVueYous } from "vueyouse";
-import App from "./App.vue";
-
-HelloVueYous();
-
-createApp(App).mount("#app");
-```
-
-### ステップ 7: 開発サーバーを起動
-
-開発サーバーを起動します：
+### ステップ 8: 実行して確認
 
 ```bash
 pnpm run dev
 ```
 
-## 学習の核となる構造
+## プロジェクト構造
 
-VueYous プロジェクトで最も重要なのは `packages/index.ts` ファイルです。このガイド全体を通して、ここに VueUse スタイルのコンポーザブルを構築していきます。
+セットアップが完了すると、以下のような構造になります：
 
-```typescript
-// packages/index.ts
-export function HelloVueYous() {
-  console.log("Hello VueYous!");
-}
-
-// 学習を進めるにつれて、ここにコンポーザブルを追加していきます
-export function useCounter() {
-  /* ... */
-}
-export function useMouse() {
-  /* ... */
-}
+```
+my-vueyouse/
+├── src/
+│   └── main.ts          # エントリーポイント（実験・テスト用）
+├── packages/
+│   └── index.ts         # コンポーザブルを実装する場所
+├── package.json
+└── tsconfig.json
 ```
 
-実際のプロジェクト構造はセットアップ方法によって異なる場合がありますが、このコアファイルは変わりません。
+**重要なポイント：**
+
+- **`packages/index.ts`**: VueYous の核となるファイル。ここにすべてのコンポーザブルを実装します
+- **`src/main.ts`**: 実験やテスト用のエントリーポイント。作成したコンポーザブルを試す場所
+- **シンプルな構成**: Vite や Vue は不要。純粋な TypeScript 環境でリアクティビティの仕組みから学べます
 
 ## セットアップの確認
 
-すべてが正しく動作しているか確認するには：
+すべてが正しく動作しているか確認するには
 
-1. 開発サーバーが起動していることを確認（`pnpm run dev`）
-2. ブラウザで `http://localhost:5173` を開く
-3. ブラウザの開発者コンソールを開く（F12 または右クリック → 検証 → Console タブ）
-4. コンソールに **"Hello VueYous!"** が表示されていることを確認
-5. プロジェクト内の任意のファイルを編集して保存してみてください - 変更がすぐに反映されます（ホットモジュールリプレースメント）
+1. `pnpm run dev` を実行
+2. コンソールに **"Hello VueYous!"** が表示されることを確認
+3. `packages/index.ts` を編集してみてください：
+
+```typescript
+export function HelloVueYous() {
+  console.log("Hello VueYous! 🎉");
+}
+```
+
+4. ファイルを保存すると、自動的に再実行され、新しいメッセージが表示されます
 
 > [!TIP]
 > コンソールに "Hello VueYous!" が表示されていれば、おめでとうございます！環境が正しくセットアップされ、学習の準備が整いました。
+
+## 学習の流れ
+
+VueYous では、以下の順序で学んでいきます：
+
+1. **Part 0: ミニマル Vue.js API の実装**
+   - `ref` の簡易実装（dependency tracking の仕組み）
+   - `computed` の簡易実装
+   - `watchEffect` の簡易実装
+
+2. **Part 1 以降: VueUse スタイルのコンポーザブル実装**
+   - 自作した Vue API を使って、VueUse のパターンを学ぶ
+   - 状態管理、DOM 操作、ブラウザ API、センサー、ネットワークなど
+
+## なぜ Vue.js を使わないのか？
+
+VueYous が Vue.js の API をそのまま使わない理由
+
+### 1. **教育的価値**
+
+Vue.js の API（`ref`, `computed` など）をそのまま使うと、VueUse のソースコードをほぼコピペするだけになってしまいます。自作することで、**なぜそのように実装されているのか**を深く理解できます。
+
+### 2. **ミニマルなコード**
+
+「chibi（小さい）」の精神に基づき、必要最小限のコードで仕組みを理解します。本番環境の Vue.js は多くの機能を持っていますが、VueYous では学習に必要な部分だけを実装します。
+
+### 3. **リアクティビティの仕組みを理解**
+
+リアクティビティシステムがどのように動作するかを理解することで、Vue.js や VueUse をより効果的に使えるようになります。
 
 ## 次のステップ
 
 おめでとうございます！開発環境の準備が整いました。
 
-次のセクションでは、最初のコンポーザブルを作成し、VueUse のコンポーザブルがどのように内部で動作するかを理解していきます。
+次のセクションでは、リアクティビティの基礎となる `ref` の簡易実装から始めて、Vue.js のリアクティビティシステムの仕組みを理解していきます。
 
 ## トラブルシューティング
 
-### ポートがすでに使用されている
+### tsx コマンドが見つからない
 
-ポート 5173 がすでに使用されているというエラーが表示された場合：
+tsx がインストールされていない場合は、以下を実行してください：
 
 ```bash
-# ポートを使用しているプロセスを終了
-npx kill-port 5173
-
-# または別のポートを指定
-pnpm run dev -- --port 3000
+pnpm add -D tsx
 ```
 
 ### モジュール解決の問題
 
-モジュール解決エラーが発生した場合：
+`vueyouse` をインポートできない場合：
 
-1. `node_modules` を削除して再インストール：
-   ```bash
-   rm -rf node_modules
-   pnpm install
-   ```
-2. Vite のキャッシュをクリア：
-   ```bash
-   rm -rf node_modules/.vite
-   ```
+1. `tsconfig.json` の `paths` 設定を確認
+2. プロジェクトのルートディレクトリで実行していることを確認
+3. TypeScript サーバーを再起動（VS Code の場合：`Cmd/Ctrl + Shift + P` → 「TypeScript: Restart TS Server」）
 
-### TypeScript エラー
+### ファイル監視が動作しない
 
-エディタで TypeScript エラーが表示される場合：
+`--watch` が動作しない場合：
 
-1. TypeScript サーバーを再起動（VS Code の場合：`Cmd/Ctrl + Shift + P` → 「TypeScript: Restart TS Server」）
-2. Vue Language Features (Volar) 拡張機能がインストールされていることを確認（Vetur ではありません）
+1. ファイルを保存していることを確認
+2. `tsx` のバージョンを確認（最新版を推奨）
+3. 手動で再実行：`pnpm run dev`
 
 ---
 
-コンポーザブルの構築を始める準備はできましたか？コンポーザブルとは何か、なぜ強力なのかを理解していきましょう！
+準備ができたら、リアクティビティの核心に飛び込みましょう！

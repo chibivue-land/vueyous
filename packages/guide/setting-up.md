@@ -1,6 +1,11 @@
 # Setting Up the Development Environment
 
-Before diving into creating composables, let's set up a proper development environment for learning VueYous. This chapter will walk you through two approaches: using our convenient setup tool or manually configuring your environment.
+Before diving into creating composables, let's set up a development environment for learning VueYous.
+
+VueYous takes an approach where **we build Vue.js APIs from scratch**. This means we'll understand the reactivity system by implementing minimal versions of `ref`, `computed`, `watchEffect`, and then build VueUse-style composables on top of them.
+
+> [!TIP]
+> This approach follows the same "chibi (minimal)" spirit as [chibivue](https://github.com/chibivue-land/chibivue), [chibivitest](https://github.com/chibivue-land/chibivitest), and [chibinuxt](https://github.com/chibivue-land/chibinuxt). Rather than using existing APIs directly, we'll implement them from the ground up to deeply understand how they work.
 
 ## Prerequisites
 
@@ -55,66 +60,102 @@ cd my-vueyouse
 pnpm install
 ```
 
-### Step 4: Start the Development Server
+### Step 4: Run and Verify
 
 ```bash
 pnpm run dev
 ```
 
-Your development server should now be running at `http://localhost:5173`. Open this URL in your browser, and you're ready to start learning!
+If you see **"Hello VueYous!"** in the console, you're all set!
 
 ## Approach 2: Manual Setup
 
 If you prefer to understand every piece of the setup or want to customize your environment from scratch, follow these steps:
 
-### Step 1: Create Vite Project
-
-Create a new Vite project with Vue and TypeScript:
+### Step 1: Create Project Directory
 
 ```bash
-pnpm create vite my-vueyouse --template vue-ts
+mkdir my-vueyouse
 cd my-vueyouse
-pnpm install
+pnpm init
 ```
 
-### Step 2: Clean Up Unnecessary Files
-
-Remove the files we won't need for learning VueYous:
+### Step 2: Install Dependencies
 
 ```bash
-rm -rf src/assets src/components src/style.css public
+pnpm add -D typescript tsx @types/node
 ```
 
-### Step 3: Simplify App.vue and main.ts
+> [!NOTE]
+> - **TypeScript**: For type safety
+> - **tsx**: To execute TypeScript files directly
+> - **@types/node**: Type definitions for Node.js
 
-Replace the contents of `src/App.vue` with a simple template:
+### Step 3: Configure TypeScript
 
-```vue
-<template>Hello VueYous!</template>
+Create `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "vueyouse": ["./packages/index.ts"]
+    }
+  },
+  "include": ["src/**/*", "packages/**/*"]
+}
 ```
 
-Replace the contents of `src/main.ts` with a minimal setup:
+> [!IMPORTANT]
+> The `"vueyouse": ["./packages/index.ts"]` in `paths` allows you to import composables using the `vueyouse` alias throughout your project.
+
+### Step 4: Add Scripts to package.json
+
+Add the following to your `package.json`:
+
+```json
+{
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --watch src/main.ts"
+  }
+}
+```
+
+> [!TIP]
+> The `--watch` flag enables hot reload - your code will automatically re-run when you save files.
+
+### Step 5: Create Directory Structure
+
+```bash
+mkdir src packages
+```
+
+### Step 6: Create Entry Point
+
+Create `src/main.ts`:
 
 ```typescript
-import { createApp } from "vue";
-import App from "./App.vue";
+import { HelloVueYous } from "vueyouse";
 
-createApp(App).mount("#app");
+HelloVueYous();
 ```
 
-### Step 4: Create Composables Directory
+### Step 7: Create Your First Composable
 
-Create the `packages` directory where you'll build your composables:
-
-```bash
-mkdir packages
-```
-
-Create `packages/index.ts` with your first composable:
+Create `packages/index.ts`:
 
 ```typescript
 export function HelloVueYous() {
-  // eslint-disable-next-line no-console
   console.log("Hello VueYous!");
 }
 ```
@@ -122,144 +163,112 @@ export function HelloVueYous() {
 > [!TIP]
 > The `packages/` directory is where you'll build your VueUse-style composables. Each composable you create will be exported from `index.ts`.
 
-### Step 5: Configure TypeScript and Vite Aliases
-
-Update `vite.config.ts` to add the `vueyouse` alias:
-
-```typescript
-import { fileURLToPath, URL } from "node:url";
-import vue from "@vitejs/plugin-vue";
-import { defineConfig } from "vite";
-
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      vueyouse: fileURLToPath(new URL("./packages", import.meta.url)),
-    },
-  },
-});
-```
-
-Update `tsconfig.app.json` to add TypeScript path mapping (add `baseUrl` and `paths` to `compilerOptions`, and add `packages/**/*.ts` to `include`):
-
-```json
-{
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "types": ["vite/client"],
-    "baseUrl": ".",
-    "paths": {
-      "vueyouse": ["./packages/index.ts"]
-    }
-    /* ... other compiler options ... */
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "packages/**/*.ts"]
-}
-```
-
-> [!IMPORTANT]
-> The `vueyouse` alias allows you to import your composables from the `packages/` directory throughout your project.
-
-### Step 6: Import and Call HelloVueYous
-
-Update `src/main.ts` to import and call your first composable:
-
-```typescript
-import { createApp } from "vue";
-import { HelloVueYous } from "vueyouse";
-import App from "./App.vue";
-
-HelloVueYous();
-
-createApp(App).mount("#app");
-```
-
-### Step 7: Start Development Server
-
-Start the development server:
+### Step 8: Run and Verify
 
 ```bash
 pnpm run dev
 ```
 
-## Core Learning Structure
+## Project Structure
 
-The most important part of your VueYous project is the `packages/index.ts` file. This is where you'll build your VueUse-style composables throughout this guide.
+After setup, your project will look like this:
 
-```typescript
-// packages/index.ts
-export function HelloVueYous() {
-  console.log("Hello VueYous!");
-}
-
-// As you learn, you'll add more composables here
-export function useCounter() {
-  /* ... */
-}
-export function useMouse() {
-  /* ... */
-}
+```
+my-vueyouse/
+├── src/
+│   └── main.ts          # Entry point (for experiments and testing)
+├── packages/
+│   └── index.ts         # Where you'll implement composables
+├── package.json
+└── tsconfig.json
 ```
 
-The actual project structure may vary depending on your setup approach, but this core file remains the same.
+**Key Points:**
+
+- **`packages/index.ts`**: The core file of VueYous. You'll implement all composables here
+- **`src/main.ts`**: Entry point for experiments and testing. A place to try out your composables
+- **Simple setup**: No Vite or Vue needed. Learn the reactivity system from the ground up in a pure TypeScript environment
 
 ## Verifying Your Setup
 
 To verify everything is working correctly:
 
-1. Make sure your development server is running (`pnpm run dev`)
-2. Open `http://localhost:5173` in your browser
-3. Open the browser's Developer Console (F12 or right-click → Inspect → Console tab)
-4. You should see **"Hello VueYous!"** printed in the console
-5. Try editing any file in your project and save - you should see the changes immediately (Hot Module Replacement)
+1. Run `pnpm run dev`
+2. Check that **"Hello VueYous!"** appears in the console
+3. Try editing `packages/index.ts`:
+
+```typescript
+export function HelloVueYous() {
+  console.log("Hello VueYous! 🎉");
+}
+```
+
+4. Save the file - it should automatically re-run and display the new message
 
 > [!TIP]
 > If you see "Hello VueYous!" in the console, congratulations! Your environment is set up correctly and ready for learning.
+
+## Learning Path
+
+In VueYous, we'll learn in this order:
+
+1. **Part 0: Implementing Minimal Vue.js APIs**
+   - Simple implementation of `ref` (dependency tracking mechanism)
+   - Simple implementation of `computed`
+   - Simple implementation of `watchEffect`
+
+2. **Part 1 and Beyond: Implementing VueUse-style Composables**
+   - Using our custom Vue APIs to learn VueUse patterns
+   - State management, DOM manipulation, Browser APIs, Sensors, Network, and more
+
+## Why Not Use Vue.js?
+
+Reasons why VueYous doesn't use Vue.js APIs directly:
+
+### 1. **Educational Value**
+
+If we used Vue.js APIs (`ref`, `computed`, etc.) as-is, we'd essentially be copying VueUse's source code. By building them ourselves, we deeply understand **why they're implemented that way**.
+
+### 2. **Minimal Code**
+
+Following the "chibi (small)" spirit, we understand mechanisms with minimal code. Production Vue.js has many features, but VueYous only implements what's necessary for learning.
+
+### 3. **Understanding the Reactivity System**
+
+By understanding how the reactivity system works, you'll be able to use Vue.js and VueUse more effectively.
 
 ## Next Steps
 
 Congratulations! Your development environment is now ready.
 
-In the next section, we'll start creating our first composable and understand how VueUse composables work internally.
+In the next section, we'll start with a simple implementation of `ref`, the foundation of reactivity, and understand how Vue.js's reactivity system works.
 
 ## Troubleshooting
 
-### Port Already in Use
+### tsx Command Not Found
 
-If you see an error that port 5173 is already in use:
+If tsx is not installed, run:
 
 ```bash
-# Kill the process using the port
-npx kill-port 5173
-
-# Or specify a different port
-pnpm run dev -- --port 3000
+pnpm add -D tsx
 ```
 
 ### Module Resolution Issues
 
-If you encounter module resolution errors:
+If you can't import `vueyouse`:
 
-1. Delete `node_modules` and reinstall:
-   ```bash
-   rm -rf node_modules
-   pnpm install
-   ```
-2. Clear Vite cache:
-   ```bash
-   rm -rf node_modules/.vite
-   ```
+1. Check the `paths` setting in `tsconfig.json`
+2. Verify you're running from the project root directory
+3. Restart TypeScript server (in VS Code: `Cmd/Ctrl + Shift + P` → "TypeScript: Restart TS Server")
 
-### TypeScript Errors
+### File Watching Not Working
 
-If you see TypeScript errors in your editor:
+If `--watch` is not working:
 
-1. Restart your TypeScript server (in VS Code: `Cmd/Ctrl + Shift + P` → "TypeScript: Restart TS Server")
-2. Make sure you have the Vue Language Features (Volar) extension installed (not Vetur)
+1. Make sure you're saving the file
+2. Check your `tsx` version (latest recommended)
+3. Run manually: `pnpm run dev`
 
 ---
 
-Ready to start building composables? Let's move on to understanding what composables are and why they're so powerful!
+Ready? Let's dive into the heart of reactivity!

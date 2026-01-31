@@ -1,6 +1,11 @@
 # 设置开发环境
 
-在开始创建组合式函数之前，让我们先为学习 VueYous 设置一个合适的开发环境。本章将介绍两种方法：使用我们提供的便捷设置工具或手动配置环境。
+在开始创建组合式函数之前，让我们先为学习 VueYous 设置开发环境。
+
+VueYous 采用**从头开始构建 Vue.js API** 的方法。这意味着我们将通过实现 `ref`、`computed`、`watchEffect` 的最小版本来理解响应式系统，然后在此基础上构建 VueUse 风格的组合式函数。
+
+> [!TIP]
+> 这种方法遵循与 [chibivue](https://github.com/chibivue-land/chibivue)、[chibivitest](https://github.com/chibivue-land/chibivitest) 和 [chibinuxt](https://github.com/chibivue-land/chibinuxt) 相同的"chibi（最小化）"精神。我们不直接使用现有的 API，而是从头开始实现它们，以深入理解其工作原理。
 
 ## 前置条件
 
@@ -55,66 +60,102 @@ cd my-vueyouse
 pnpm install
 ```
 
-### 步骤 4: 启动开发服务器
+### 步骤 4: 运行并验证
 
 ```bash
 pnpm run dev
 ```
 
-您的开发服务器现在应该在 `http://localhost:5173` 运行。在浏览器中打开此 URL，您就可以开始学习了！
+如果在控制台中看到 **"Hello VueYous!"**，则一切就绪！
 
 ## 方法 2: 手动设置
 
 如果您希望了解设置的每个部分或想从头开始自定义环境，请按照以下步骤操作：
 
-### 步骤 1: 创建 Vite 项目
-
-使用 Vue 和 TypeScript 创建新的 Vite 项目：
+### 步骤 1: 创建项目目录
 
 ```bash
-pnpm create vite my-vueyouse --template vue-ts
+mkdir my-vueyouse
 cd my-vueyouse
-pnpm install
+pnpm init
 ```
 
-### 步骤 2: 清理不必要的文件
-
-删除 VueYous 学习中不需要的文件：
+### 步骤 2: 安装依赖
 
 ```bash
-rm -rf src/assets src/components src/style.css public
+pnpm add -D typescript tsx @types/node
 ```
 
-### 步骤 3: 简化 App.vue 和 main.ts
+> [!NOTE]
+> - **TypeScript**: 用于类型安全
+> - **tsx**: 直接执行 TypeScript 文件
+> - **@types/node**: Node.js 的类型定义
 
-将 `src/App.vue` 的内容替换为简单的模板：
+### 步骤 3: 配置 TypeScript
 
-```vue
-<template>Hello VueYous!</template>
+创建 `tsconfig.json`：
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "vueyouse": ["./packages/index.ts"]
+    }
+  },
+  "include": ["src/**/*", "packages/**/*"]
+}
 ```
 
-将 `src/main.ts` 的内容替换为最小化设置：
+> [!IMPORTANT]
+> `paths` 中的 `"vueyouse": ["./packages/index.ts"]` 允许您在整个项目中使用 `vueyouse` 别名导入组合式函数。
+
+### 步骤 4: 在 package.json 中添加脚本
+
+在 `package.json` 中添加以下内容：
+
+```json
+{
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --watch src/main.ts"
+  }
+}
+```
+
+> [!TIP]
+> `--watch` 标志启用热重载 - 保存文件时代码会自动重新运行。
+
+### 步骤 5: 创建目录结构
+
+```bash
+mkdir src packages
+```
+
+### 步骤 6: 创建入口点
+
+创建 `src/main.ts`：
 
 ```typescript
-import { createApp } from "vue";
-import App from "./App.vue";
+import { HelloVueYous } from "vueyouse";
 
-createApp(App).mount("#app");
+HelloVueYous();
 ```
 
-### 步骤 4: 创建组合式函数目录
+### 步骤 7: 创建第一个组合式函数
 
-创建用于构建组合式函数的 `packages` 目录：
-
-```bash
-mkdir packages
-```
-
-创建您的第一个组合式函数 `packages/index.ts`：
+创建 `packages/index.ts`：
 
 ```typescript
 export function HelloVueYous() {
-  // eslint-disable-next-line no-console
   console.log("Hello VueYous!");
 }
 ```
@@ -122,144 +163,112 @@ export function HelloVueYous() {
 > [!TIP]
 > `packages/` 目录是您构建 VueUse 风格组合式函数的地方。您创建的每个组合式函数都将从 `index.ts` 导出。
 
-### 步骤 5: 配置 TypeScript 和 Vite 别名
-
-更新 `vite.config.ts` 添加 `vueyouse` 别名：
-
-```typescript
-import { fileURLToPath, URL } from "node:url";
-import vue from "@vitejs/plugin-vue";
-import { defineConfig } from "vite";
-
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      vueyouse: fileURLToPath(new URL("./packages", import.meta.url)),
-    },
-  },
-});
-```
-
-更新 `tsconfig.app.json` 添加 TypeScript 路径映射（在 `compilerOptions` 中添加 `baseUrl` 和 `paths`，在 `include` 中添加 `packages/**/*.ts`）：
-
-```json
-{
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "types": ["vite/client"],
-    "baseUrl": ".",
-    "paths": {
-      "vueyouse": ["./packages/index.ts"]
-    }
-    /* ... 其他编译器选项 ... */
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "packages/**/*.ts"]
-}
-```
-
-> [!IMPORTANT]
-> `vueyouse` 别名允许您在整个项目中从 `packages/` 目录导入组合式函数。
-
-### 步骤 6: 导入并调用 HelloVueYous
-
-更新 `src/main.ts` 导入并调用您的第一个组合式函数：
-
-```typescript
-import { createApp } from "vue";
-import { HelloVueYous } from "vueyouse";
-import App from "./App.vue";
-
-HelloVueYous();
-
-createApp(App).mount("#app");
-```
-
-### 步骤 7: 启动开发服务器
-
-启动开发服务器：
+### 步骤 8: 运行并验证
 
 ```bash
 pnpm run dev
 ```
 
-## 核心学习结构
+## 项目结构
 
-VueYous 项目中最重要的是 `packages/index.ts` 文件。在整个指南中，您将在这里构建 VueUse 风格的组合式函数。
+设置完成后，您的项目结构如下：
 
-```typescript
-// packages/index.ts
-export function HelloVueYous() {
-  console.log("Hello VueYous!");
-}
-
-// 随着学习的深入，您将在这里添加更多组合式函数
-export function useCounter() {
-  /* ... */
-}
-export function useMouse() {
-  /* ... */
-}
+```
+my-vueyouse/
+├── src/
+│   └── main.ts          # 入口点（用于实验和测试）
+├── packages/
+│   └── index.ts         # 实现组合式函数的地方
+├── package.json
+└── tsconfig.json
 ```
 
-实际的项目结构可能因您的设置方法而异，但这个核心文件保持不变。
+**关键点：**
+
+- **`packages/index.ts`**: VueYous 的核心文件。您将在这里实现所有组合式函数
+- **`src/main.ts`**: 实验和测试的入口点。用于尝试您创建的组合式函数
+- **简单配置**: 不需要 Vite 或 Vue。在纯 TypeScript 环境中从头学习响应式系统
 
 ## 验证您的设置
 
 要验证一切是否正常工作：
 
-1. 确保开发服务器正在运行（`pnpm run dev`）
-2. 在浏览器中打开 `http://localhost:5173`
-3. 打开浏览器的开发者控制台（F12 或右键 → 检查 → Console 标签）
-4. 您应该在控制台中看到 **"Hello VueYous!"**
-5. 尝试编辑项目中的任何文件并保存 - 您应该立即看到更改（热模块替换）
+1. 运行 `pnpm run dev`
+2. 检查控制台是否显示 **"Hello VueYous!"**
+3. 尝试编辑 `packages/index.ts`：
+
+```typescript
+export function HelloVueYous() {
+  console.log("Hello VueYous! 🎉");
+}
+```
+
+4. 保存文件 - 它应该自动重新运行并显示新消息
 
 > [!TIP]
 > 如果在控制台中看到 "Hello VueYous!"，恭喜！您的环境已正确设置，可以开始学习了。
+
+## 学习路径
+
+在 VueYous 中，我们将按以下顺序学习：
+
+1. **Part 0: 实现最小化 Vue.js API**
+   - `ref` 的简单实现（依赖跟踪机制）
+   - `computed` 的简单实现
+   - `watchEffect` 的简单实现
+
+2. **Part 1 及以后: 实现 VueUse 风格的组合式函数**
+   - 使用我们自定义的 Vue API 学习 VueUse 模式
+   - 状态管理、DOM 操作、浏览器 API、传感器、网络等
+
+## 为什么不使用 Vue.js？
+
+VueYous 不直接使用 Vue.js API 的原因：
+
+### 1. **教育价值**
+
+如果我们直接使用 Vue.js 的 API（`ref`、`computed` 等），实际上就是在复制 VueUse 的源代码。通过自己构建，我们可以深入理解**为什么要这样实现**。
+
+### 2. **最小化代码**
+
+遵循"chibi（小型）"精神，我们用最少的代码理解机制。生产环境的 Vue.js 有很多功能，但 VueYous 只实现学习所需的部分。
+
+### 3. **理解响应式系统**
+
+通过理解响应式系统的工作原理，您将能够更有效地使用 Vue.js 和 VueUse。
 
 ## 下一步
 
 恭喜！您的开发环境现已准备就绪。
 
-在下一节中，我们将开始创建第一个组合式函数，并了解 VueUse 组合式函数的内部工作原理。
+在下一节中，我们将从响应式基础 `ref` 的简单实现开始，了解 Vue.js 响应式系统的工作原理。
 
 ## 故障排除
 
-### 端口已被占用
+### 找不到 tsx 命令
 
-如果您看到端口 5173 已被使用的错误：
+如果未安装 tsx，请运行：
 
 ```bash
-# 终止使用该端口的进程
-npx kill-port 5173
-
-# 或指定不同的端口
-pnpm run dev -- --port 3000
+pnpm add -D tsx
 ```
 
 ### 模块解析问题
 
-如果遇到模块解析错误：
+如果无法导入 `vueyouse`：
 
-1. 删除 `node_modules` 并重新安装：
-   ```bash
-   rm -rf node_modules
-   pnpm install
-   ```
-2. 清除 Vite 缓存：
-   ```bash
-   rm -rf node_modules/.vite
-   ```
+1. 检查 `tsconfig.json` 中的 `paths` 设置
+2. 确认您在项目根目录中运行
+3. 重启 TypeScript 服务器（在 VS Code 中：`Cmd/Ctrl + Shift + P` → "TypeScript: Restart TS Server"）
 
-### TypeScript 错误
+### 文件监视不工作
 
-如果在编辑器中看到 TypeScript 错误：
+如果 `--watch` 不工作：
 
-1. 重启 TypeScript 服务器（在 VS Code 中：`Cmd/Ctrl + Shift + P` → "TypeScript: Restart TS Server"）
-2. 确保已安装 Vue Language Features (Volar) 扩展（而不是 Vetur）
+1. 确保已保存文件
+2. 检查 `tsx` 版本（推荐最新版本）
+3. 手动运行：`pnpm run dev`
 
 ---
 
-准备好开始构建组合式函数了吗？让我们继续了解什么是组合式函数以及它们为何如此强大！
+准备好了吗？让我们深入响应式的核心！

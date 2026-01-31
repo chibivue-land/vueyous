@@ -45,10 +45,8 @@ This command will:
 
 ### Step 2: Navigate to Your Project
 
-The tool creates a monorepo structure with your composables in `packages/` and an example app in `examples/playground/`. Navigate to the playground directory:
-
 ```bash
-cd my-vueyouse/examples/playground
+cd my-vueyouse
 ```
 
 ### Step 3: Install Dependencies
@@ -73,14 +71,13 @@ The `create-vueyouse` tool creates the following structure:
 my-vueyouse/
 ├── packages/              # Your composables live here
 │   └── index.ts
-├── examples/
-│   └── playground/        # Development environment
-│       ├── src/
-│       │   ├── App.vue
-│       │   └── main.ts
-│       ├── vite.config.ts
-│       ├── tsconfig.json
-│       └── package.json
+├── playground/            # Development environment
+│   ├── src/
+│   │   ├── App.vue
+│   │   └── main.ts
+│   ├── vite.config.ts
+│   ├── tsconfig.json
+│   └── package.json
 ├── tsconfig.json
 └── package.json
 ```
@@ -89,29 +86,19 @@ You'll write your composables in `packages/index.ts` and test them in the `playg
 
 ## Approach 2: Manual Setup
 
-If you prefer to understand every piece of the setup or want to customize your environment from scratch, follow these steps to create the monorepo structure:
+If you prefer to understand every piece of the setup or want to customize your environment from scratch, follow these steps:
 
-### Step 1: Create Project Structure
+### Step 1: Create Vite Project
 
-Create the project directory and monorepo structure:
+Create a new Vite project with Vue and TypeScript:
 
 ```bash
-mkdir -p my-vueyouse/packages
-mkdir -p my-vueyouse/examples/playground
+pnpm create vite my-vueyouse --template vue-ts
 cd my-vueyouse
-```
-
-### Step 2: Create Vite Project in Playground
-
-Navigate to the playground directory and create a Vite project:
-
-```bash
-cd examples/playground
-pnpm create vite . --template vue-ts
 pnpm install
 ```
 
-### Step 3: Clean Up Unnecessary Files
+### Step 2: Clean Up Unnecessary Files
 
 Remove the files we won't need for learning VueYous:
 
@@ -119,7 +106,7 @@ Remove the files we won't need for learning VueYous:
 rm -rf src/assets src/components src/style.css public
 ```
 
-### Step 4: Simplify App.vue and main.ts
+### Step 3: Simplify App.vue and main.ts
 
 Replace the contents of `src/App.vue` with a simple template:
 
@@ -136,15 +123,15 @@ import App from "./App.vue";
 createApp(App).mount("#app");
 ```
 
-### Step 5: Create Composables Directory
+### Step 4: Create Composables Directory
 
-Navigate back to the project root and create `packages/index.ts` with your first composable:
+Create the `packages` directory for building your composables:
 
 ```bash
-cd ../..  # Back to my-vueyouse root
+mkdir packages
 ```
 
-Create `packages/index.ts`:
+Create your first composable `packages/index.ts`:
 
 ```typescript
 export function HelloVueYous() {
@@ -156,15 +143,9 @@ export function HelloVueYous() {
 > [!TIP]
 > The `packages/` directory at the project root is where you'll build your VueUse-style composables. Each composable you create will be exported from `index.ts`.
 
-### Step 6: Configure TypeScript and Vite Aliases
+### Step 5: Configure TypeScript and Vite Aliases
 
-Navigate to the playground directory and update the configuration files:
-
-```bash
-cd examples/playground
-```
-
-Update `vite.config.ts` to add the `vueyouse` alias pointing to the root-level packages:
+Update `vite.config.ts` to add the `vueyouse` alias:
 
 ```typescript
 import { fileURLToPath, URL } from "node:url";
@@ -176,13 +157,13 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      vueyouse: fileURLToPath(new URL("../../packages", import.meta.url)),
+      vueyouse: fileURLToPath(new URL("./packages", import.meta.url)),
     },
   },
 });
 ```
 
-Update `tsconfig.app.json` to add TypeScript path mapping (add `baseUrl` and `paths` to `compilerOptions`):
+Update `tsconfig.app.json` to add TypeScript path mapping (add `baseUrl` and `paths` to `compilerOptions`, and add `packages/**/*.ts` to `include`):
 
 ```json
 {
@@ -192,18 +173,18 @@ Update `tsconfig.app.json` to add TypeScript path mapping (add `baseUrl` and `pa
     "types": ["vite/client"],
     "baseUrl": ".",
     "paths": {
-      "vueyouse": ["../../packages/index.ts"]
+      "vueyouse": ["./packages/index.ts"]
     }
     /* ... other compiler options ... */
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "packages/**/*.ts"]
 }
 ```
 
 > [!IMPORTANT]
-> The `vueyouse` alias allows you to import your composables from the root-level `packages/` directory. Both Vite (for runtime) and TypeScript (for type checking) need this configuration to resolve the module correctly.
+> The `vueyouse` alias allows you to import your composables throughout the project from the `packages/` directory.
 
-### Step 7: Import and Call HelloVueYous
+### Step 6: Import and Call HelloVueYous
 
 Update `src/main.ts` to import and call your first composable:
 
@@ -217,9 +198,9 @@ HelloVueYous();
 createApp(App).mount("#app");
 ```
 
-### Step 8: Start Development Server
+### Step 7: Start Development Server
 
-Start the development server from the playground directory:
+Start the development server:
 
 ```bash
 pnpm run dev
@@ -227,20 +208,7 @@ pnpm run dev
 
 ## Core Learning Structure
 
-Your VueYous project follows a monorepo structure that separates concerns:
-
-```
-my-vueyouse/
-├── packages/              # Composables (your learning focus)
-│   └── index.ts          # All composables exported here
-└── examples/
-    └── playground/        # Testing environment
-        └── src/
-            ├── App.vue
-            └── main.ts    # Import and test composables
-```
-
-The most important file is `packages/index.ts` at the project root. This is where you'll build your VueUse-style composables throughout this guide:
+The most important file in your VueYous project is `packages/index.ts`. This is where you'll build your VueUse-style composables throughout this guide:
 
 ```typescript
 // packages/index.ts
@@ -257,7 +225,7 @@ export function useMouse() {
 }
 ```
 
-You'll write composables in `packages/index.ts` and test them by importing in `examples/playground/src/main.ts` or any component in the playground app.
+The actual project structure may differ depending on how you set it up, but this core file remains the same.
 
 ## Verifying Your Setup
 
@@ -296,14 +264,14 @@ pnpm run dev -- --port 3000
 
 If you encounter errors like `Cannot find module 'vueyouse'`:
 
-1. **Check TypeScript configuration**: Ensure `tsconfig.app.json` in the playground directory has the correct `paths` mapping:
+1. **Check TypeScript configuration**: Ensure `tsconfig.app.json` has the correct `paths` mapping:
 
    ```json
    {
      "compilerOptions": {
        "baseUrl": ".",
        "paths": {
-         "vueyouse": ["../../packages/index.ts"]
+         "vueyouse": ["./packages/index.ts"]
        }
      }
    }
@@ -314,7 +282,7 @@ If you encounter errors like `Cannot find module 'vueyouse'`:
    ```typescript
    resolve: {
      alias: {
-       vueyouse: fileURLToPath(new URL("../../packages", import.meta.url));
+       vueyouse: fileURLToPath(new URL("./packages", import.meta.url));
      }
    }
    ```
@@ -322,7 +290,6 @@ If you encounter errors like `Cannot find module 'vueyouse'`:
 3. **Delete node_modules and reinstall**:
 
    ```bash
-   cd examples/playground
    rm -rf node_modules
    pnpm install
    ```
@@ -341,7 +308,6 @@ If you see TypeScript errors in your editor:
 
 1. Restart your TypeScript server (in VS Code: `Cmd/Ctrl + Shift + P` → "TypeScript: Restart TS Server")
 2. Make sure you have the Vue Language Features (Volar) extension installed (not Vetur)
-3. Ensure you're working in the correct directory (`examples/playground`)
 
 ---
 

@@ -12,6 +12,8 @@
     "type-check": "vue-tsc --build --force",
     "lint": "oxlint --type-aware && textlint .",
     "lint:fix": "oxlint --type-aware --fix && textlint --fix .",
+    "textlint": "textlint .",
+    "textlint:fix": "textlint --fix .",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check .",
     "docs:dev": "vitepress dev packages",
@@ -28,6 +30,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^7.2.0",
     "@antfu/ni": "^28.2.0",
+    "@textlint-ja/textlint-rule-preset-ai-writing": "^1.6.1",
     "@tsconfig/node24": "^24.0.0",
     "@types/fs-extra": "^11.0.4",
     "@types/jsdom": "^27.0.0",

@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+.vitepress/dist/
+.vitepress/cache/
+
+# Generated files
+*.log
+*.tsbuildinfo
+
+# Temp directories
+.temp/
+.cache/
+my-vueyouse/
+
+# Lock files
+pnpm-lock.yaml

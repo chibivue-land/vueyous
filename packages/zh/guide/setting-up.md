@@ -1,6 +1,6 @@
 # 设置开发环境
 
-在开始创建组合式函数之前，让我们先为学习 VueYous 设置一个合适的开发环境。本章将介绍两种方法：使用我们提供的便捷设置工具或手动配置环境。
+在开始创建组合式函数之前,让我们先为学习 VueYous 设置一个合适的开发环境。本章将介绍两种方法：使用我们提供的便捷设置工具或手动配置环境。
 
 ## 前置条件
 
@@ -144,7 +144,7 @@ export default defineConfig({
 });
 ```
 
-更新 `tsconfig.app.json` 添加 TypeScript 路径映射（在 `compilerOptions` 中添加 `baseUrl` 和 `paths`，在 `include` 中添加 `packages/**/*.ts`）。
+更新 `tsconfig.app.json` 添加 TypeScript 路径映射（在 `compilerOptions` 中添加 `baseUrl` 和 `paths`，在 `include` 中添加 `packages/**/*.ts`）
 
 ```json
 {
@@ -189,7 +189,7 @@ pnpm run dev
 
 ## 核心学习结构
 
-VueYous 项目中最重要的是 `packages/index.ts` 文件。在整个指南中，您将在这里构建 VueUse 风格的组合式函数。
+VueYous 项目中最重要的是 `packages/index.ts` 文件。在整个指南中，您将在这里构建 VueUse 风格的组合式函数：
 
 ```typescript
 // packages/index.ts

@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "setup": "ni && tsx tools/create-vueyouse/main.ts",
-    "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
@@ -38,8 +37,6 @@
     "@vitejs/plugin-vue": "^6.0.3",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.8.1",
-    "@vueyous/core": "workspace:*",
-    "@vueyous/shared": "workspace:*",
     "changelogen": "^0.6.2",
     "eslint": "^9.39.2",
     "eslint-plugin-oxlint": "^1.42.0",

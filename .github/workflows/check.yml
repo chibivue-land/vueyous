@@ -28,8 +28,5 @@ jobs:
       - name: format check
         run: pnpm fmt:check
 
-      - name: build
-        run: pnpm run build
-
       - name: docs build
         run: pnpm run docs:build

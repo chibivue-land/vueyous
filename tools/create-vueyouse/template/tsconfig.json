@@ -10,7 +10,6 @@
     "skipLibCheck": true,
     "jsx": "preserve",
     "types": ["vite/client"],
-    "baseUrl": ".",
     "paths": {
       "vueyouse": ["./packages/"]
     }

@@ -1,6 +1,6 @@
 {
   "name": "@vueyous/monorepo",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "type": "module",
   "scripts": {
@@ -20,7 +20,8 @@
     "docs:preview": "vitepress preview packages",
     "release:major": "pnpm dlx changelogen@latest --release --major",
     "release:minor": "pnpm dlx changelogen@latest --release --minor",
-    "release:patch": "pnpm dlx changelogen@latest --release --patch"
+    "release:patch": "pnpm dlx changelogen@latest --release --patch",
+    "release": "./scripts/release.sh"
   },
   "dependencies": {
     "@vueuse/core": "^14.1.0",

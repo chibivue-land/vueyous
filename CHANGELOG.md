@@ -1,5 +1,31 @@
 # Changelog
 
+## v0.0.5
+
+[compare changes](https://github.com/chibivue-land/vueyous/compare/v0.0.4...v0.0.5)
+
+### 🚀 Enhancements
+
+- Enhance documentation structure and add useCounter guide with multilingual support ([#64](https://github.com/chibivue-land/vueyous/pull/64))
+
+### 💅 Refactors
+
+- Simplify template structure and remove mise dependency ([#61](https://github.com/chibivue-land/vueyous/pull/61))
+
+### 📖 Documentation
+
+- Add multilingual development setup guide ([#60](https://github.com/chibivue-land/vueyous/pull/60))
+- Improve documentation quality and template structure ([#63](https://github.com/chibivue-land/vueyous/pull/63))
+
+### 🏡 Chore
+
+- **release:** V0.0.4 ([ac8d3b5](https://github.com/chibivue-land/vueyous/commit/ac8d3b5))
+
+### ❤️ Contributors
+
+- NaokiHaba ([@naokihaba](https://github.com/naokihaba))
+- Naokihaba ([@naokihaba](https://github.com/naokihaba))
+
 ## v0.0.4
 
 [compare changes](https://github.com/chibivue-land/vueyous/compare/v0.0.3...v0.0.4)

@@ -610,7 +610,3 @@ const { count, inc, dec, double, get, reset } = useCounter(5, {
 3. **get()**: An alias for `count.value`. Convenient for retrieving the value outside templates
 
 </details>
-
----
-
-Next: [useToggle](./useToggle.md) (Coming Soon)

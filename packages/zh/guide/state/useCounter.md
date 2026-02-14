@@ -610,7 +610,3 @@ const { count, inc, dec, double, get, reset } = useCounter(5, {
 3. **get()**：`count.value` 的别名。在模板外获取值时很方便
 
 </details>
-
----
-
-下一步：[useToggle](./useToggle.md)（准备中）

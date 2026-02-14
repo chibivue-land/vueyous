@@ -610,7 +610,3 @@ const { count, inc, dec, double, get, reset } = useCounter(5, {
 3. **get()**: `count.value`のエイリアス。テンプレート外で値を取得する際に便利
 
 </details>
-
----
-
-次: [useToggle](./useToggle.md) （準備中）

@@ -43,7 +43,7 @@ This command will:
 - Copy all necessary template files
 - Set up the project structure for learning
 
-### Step 2: Navigate to Playground Directory
+### Step 2: Navigate to Your Project
 
 The tool creates your composables in `packages/` and a development environment in `playground/`. Navigate to the playground directory:
 
@@ -64,27 +64,6 @@ pnpm run dev
 ```
 
 Your development server should now be running at `http://localhost:5173`. Open this URL in your browser, and you're ready to start learning!
-
-### Project Structure
-
-The `create-vueyouse` tool creates the following structure:
-
-```
-my-vueyouse/
-├── packages/              # Your composables live here
-│   └── index.ts
-├── playground/            # Development environment
-│   ├── src/
-│   │   ├── App.vue
-│   │   └── main.ts
-│   ├── vite.config.ts
-│   ├── tsconfig.json
-│   └── package.json
-├── tsconfig.json
-└── package.json
-```
-
-You'll write your composables in `packages/index.ts` and test them in the `playground` app.
 
 ## Approach 2: Manual Setup
 
@@ -143,7 +122,7 @@ export function HelloVueYous() {
 ```
 
 > [!TIP]
-> The `packages/` directory at the project root is where you'll build your VueUse-style composables. Each composable you create will be exported from `index.ts`.
+> The `packages/` directory is where you'll build your VueUse-style composables. Each composable you create will be exported from `index.ts`.
 
 ### Step 5: Configure TypeScript and Vite Aliases
 
@@ -264,45 +243,17 @@ pnpm run dev -- --port 3000
 
 ### Module Resolution Issues
 
-If you encounter errors like `Cannot find module 'vueyouse'`:
+If you encounter module resolution errors:
 
-1. **Check TypeScript configuration**: Ensure `tsconfig.app.json` has the correct `paths` mapping:
-
-   ```json
-   {
-     "compilerOptions": {
-       "baseUrl": ".",
-       "paths": {
-         "vueyouse": ["./packages/index.ts"]
-       }
-     }
-   }
-   ```
-
-2. **Check Vite configuration**: Ensure `vite.config.ts` has the correct alias:
-
-   ```typescript
-   resolve: {
-     alias: {
-       vueyouse: fileURLToPath(new URL("./packages", import.meta.url));
-     }
-   }
-   ```
-
-3. **Delete node_modules and reinstall**:
-
+1. Delete `node_modules` and reinstall:
    ```bash
    rm -rf node_modules
    pnpm install
    ```
-
-4. **Clear Vite cache**:
+2. Clear Vite cache:
    ```bash
    rm -rf node_modules/.vite
    ```
-
-> [!NOTE]
-> For more details on TypeScript module resolution in monorepos, see `typescript-module-resolution-memo.md` in the project root.
 
 ### TypeScript Errors
 

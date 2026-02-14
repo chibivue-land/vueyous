@@ -4,7 +4,7 @@ Welcome to VueYous!
 
 In this book, you'll learn how to create composable functions by exploring [VueUse](https://vueuse.org/), a collection of utility functions built on Vue.js's Composition API.
 
-True to the name "chibi" (small) Yous, this book is designed to help you understand the mechanics of composable functions by recreating them with minimal code.
+True to the name "chibi" (small), this book is designed to help you understand the mechanics of composable functions by recreating them with minimal code.
 
 While we assume you have some basic knowledge of Vue.js, we've made sure that even those with limited experience can learn alongside us.
 
@@ -76,7 +76,7 @@ Push Vue's reactivity further. Convert functions to reactive versions, synchroni
 
 Work with reactive arrays elegantly. Implement composables for mapping, filtering, and finding array elements while maintaining reactivity.
 
-### Chapter 11: Utilities (Utilities)
+### Chapter 11: Utilities
 
 Learn advanced patterns for composable design. Create shared composables, manage global state, handle async queues, and implement debounce and throttle utilities.
 

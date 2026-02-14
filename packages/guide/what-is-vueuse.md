@@ -103,12 +103,12 @@ VueUse organizes its 200+ functions into logical categories:
 
 Instead of just using VueUse's functions, this book teaches you how to **build them yourself**. By recreating simplified versions of VueUse composables:
 
-- You'll understand **how** they work internally
+- You'll **understand** how they work internally
 - You'll learn **why** certain patterns are used
 - You'll be able to create **your own** custom composables for unique needs
 
 Think of it as learning to fish instead of just receiving fish. By the end, you'll not only know how to use VueUse effectively, but also how to build composable functions that solve your specific problems.
 
-## Ready to Dive In?
+## Ready to Get Started?
 
 Now that you understand what VueUse is and why it's valuable, let's get your environment set up and start building your first composable!

@@ -32,51 +32,51 @@
 
 ## 第 1 部分：核心部分
 
-### 第 0 章：简介
+### Chapter 0: 简介
 
 学习 VueUse 的基础知识，设置开发环境，并了解如何浏览代码库。本章为您即将开始的实践学习之旅做好准备。
 
-### 第 1 章：State（状态管理）
+### Chapter 1: State（状态管理）
 
 掌握响应式状态管理模式。为计数器、开关以及使用 localStorage 和 sessionStorage 的持久化存储解决方案构建可组合函数。学习使用状态历史跟踪实现撤销/重做功能。
 
-### 第 2 章：Elements（DOM 元素操作）
+### Chapter 2: Elements（DOM 元素操作）
 
 通过可组合函数直接操作 DOM 元素。处理事件、跟踪元素大小和位置，并利用 IntersectionObserver、ResizeObserver 和 MutationObserver 等强大的浏览器 API。
 
-### 第 3 章：Browser（浏览器 API）
+### Chapter 3: Browser（浏览器 API）
 
 利用浏览器功能实现响应式设计和用户偏好。实现媒体查询、断点、暗黑模式检测、剪贴板操作，并控制页面元数据（如标题和图标）。
 
-### 第 4 章：Sensors（传感器和输入检测）
+### Chapter 4: Sensors（传感器和输入检测）
 
 捕获用户交互和设备输入。跟踪鼠标和指针移动、检测元素外的点击、处理键盘快捷键，以及实现滑动手势和拖放功能。
 
-### 第 5 章：Network（网络）
+### Chapter 5: Network（网络）
 
 处理异步操作和网络通信。构建用于获取数据、管理异步状态以及使用 WebSocket 建立实时连接的可组合函数。
 
-### 第 6 章：Animation（动画）
+### Chapter 6: Animation（动画）
 
 控制时序并创建流畅的动画。掌握 interval、timeout、requestAnimationFrame 和状态过渡，使您的界面栩栩如生。
 
-### 第 7 章：Component（组件集成）
+### Chapter 7: Component（组件集成）
 
 增强组件通信和可重用性。实现使用 v-model 的双向绑定、管理模板引用，以及创建可重用的模板模式。
 
-### 第 8 章：Watch（监听扩展）
+### Chapter 8: Watch（监听扩展）
 
 使用高级监听模式扩展 Vue 的响应性系统。实现防抖和节流监听器、可暂停的监听，以及 `whenever` 和 `until` 等便捷工具。
 
-### 第 9 章：Reactivity（响应性扩展）
+### Chapter 9: Reactivity（响应性扩展）
 
 进一步推进 Vue 的响应性。将函数转换为响应式版本、同步 refs、将 refs 转换为响应式对象，以及将防抖/节流应用于响应式值。
 
-### 第 10 章：Array（数组操作）
+### Chapter 10: Array（数组操作）
 
 优雅地处理响应式数组。在保持响应性的同时，实现用于映射、过滤和查找数组元素的可组合函数。
 
-### 第 11 章：Utilities（实用工具）
+### Chapter 11: Utilities（实用工具）
 
 学习可组合设计的高级模式。创建共享可组合函数、管理全局状态、处理异步队列，以及实现防抖和节流工具。
 

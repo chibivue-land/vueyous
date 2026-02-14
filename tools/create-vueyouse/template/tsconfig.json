@@ -7,10 +7,14 @@
     "allowJs": true,
     "strict": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "types": ["vite/client"],
+    "baseUrl": ".",
     "paths": {
       "vueyouse": ["./packages/"]
     }
   },
-  "include": ["packages/**/*.ts", "playground/**/*.ts"],
+  "include": ["packages/**/*.ts", "src/**/*.ts", "src/**/*.vue"],
   "exclude": ["node_modules", "dist"]
 }

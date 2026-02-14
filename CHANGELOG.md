@@ -23,7 +23,6 @@
 
 ### ❤️ Contributors
 
-- NaokiHaba ([@naokihaba](https://github.com/naokihaba))
 - Naokihaba ([@naokihaba](https://github.com/naokihaba))
 
 ## v0.0.4
@@ -40,7 +39,6 @@
 
 ### ❤️ Contributors
 
-- NaokiHaba ([@naokihaba](https://github.com/naokihaba))
 - Naokihaba ([@naokihaba](https://github.com/naokihaba))
 
 ## v0.0.3

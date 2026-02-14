@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.0.6
+
+[compare changes](https://github.com/chibivue-land/vueyous/compare/v0.0.5...v0.0.6)
+
+### 🏡 Chore
+
+- **release:** V0.0.5 ([8169d20](https://github.com/chibivue-land/vueyous/commit/8169d20))
+- Remove duplicate contributor entry for Naokihaba in CHANGELOG.md ([31fc896](https://github.com/chibivue-land/vueyous/commit/31fc896))
+- Improve CI workflow and clean up documentation ([#66](https://github.com/chibivue-land/vueyous/pull/66))
+
+### ❤️ Contributors
+
+- NaokiHaba ([@naokihaba](https://github.com/naokihaba))
+- Naokihaba ([@naokihaba](https://github.com/naokihaba))
+
 ## v0.0.5
 
 [compare changes](https://github.com/chibivue-land/vueyous/compare/v0.0.4...v0.0.5)
